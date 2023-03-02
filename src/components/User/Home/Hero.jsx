@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Container } from "react-bootstrap";
 import { BsArrowRight } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import PictBanner from "../../assets/pict-banner.png";
+import PictBanner from "../../../assets/pict-banner.png";
 
 export default function Hero() {
   return (

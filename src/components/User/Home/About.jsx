@@ -1,6 +1,6 @@
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import CDC from "../../assets/cdc.png";
+import CDC from "../../../assets/cdc.png";
 
 export default function About() {
   return (

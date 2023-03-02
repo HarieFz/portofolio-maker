@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Col, Container, Row } from "react-bootstrap";
-import Civil from "../../assets/sipil.png";
-import Alex from "../../assets/alex.png";
+import Civil from "../../../assets/sipil.png";
+import Alex from "../../../assets/alex.png";
 import { Link } from "react-router-dom";
 
 export default function Portofolio() {

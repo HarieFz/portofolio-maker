@@ -1,6 +1,6 @@
 import React from "react";
 import { Container } from "react-bootstrap";
-import Stupo from "../../assets/student-portofolio.png";
+import Stupo from "../../../assets/student-portofolio.png";
 
 export default function StudentPortofolio() {
   return (
