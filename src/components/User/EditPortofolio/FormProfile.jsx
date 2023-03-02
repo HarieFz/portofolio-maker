@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { fileReader } from "../../utils/fileReader";
+import { fileReader } from "../../../utils/fileReader";
 import PreviewPortofolio from "./PreviewPortofolio";
 
 export default function FormProfile() {
