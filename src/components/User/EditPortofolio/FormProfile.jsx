@@ -14,9 +14,6 @@ export default function FormProfile() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState(0);
   const [socMed, setSocMed] = useState("");
-  const [fileCertificate, setFileCertificate] = useState();
-  const [previewFileCertificate, setPreviewFileCertificate] = useState();
-  const [nameCertificate, setNameCertificate] = useState("");
 
   // handleChange form
   const onSelectedPhoto = (e) => setSelectedPhoto(e.target.files[0]);
@@ -26,8 +23,6 @@ export default function FormProfile() {
   const onEmail = (e) => setEmail(e.target.value);
   const onPhone = (e) => setPhone(e.target.value);
   const onSocMed = (e) => setSocMed(e.target.value);
-  const onFileCertificate = (e) => setFileCertificate(e.target.files[0]);
-  const onNameCertificate = (e) => setNameCertificate(e.target.value);
 
   // Achievment Fields
   const [achievmentFields, setAchievmentFields] = useState([{ achievment: "" }]);
@@ -50,20 +45,45 @@ export default function FormProfile() {
     setAchievmentFields(newAchievmentFormValues);
   };
 
+  // Certificate Fields
+  const [certificateFields, setCertificateFields] = useState([{ file: null, name: "" }]);
+
+  const onCertificateChange = (index, e) => {
+    let data = [...certificateFields];
+    if (e.target.name === "file") {
+      data[index][e.target.name] = e.target.files[0];
+    } else {
+      data[index][e.target.name] = e.target.value;
+    }
+
+    setCertificateFields(data);
+  };
+
+  const addCertificateFields = () => {
+    let newCertifField = { file: null, name: "" };
+
+    setCertificateFields([...certificateFields, newCertifField]);
+  };
+
+  const removeCertificateFields = (i) => {
+    let newCertificateFormValues = [...certificateFields];
+    newCertificateFormValues.splice(i, 1);
+    setCertificateFields(newCertificateFormValues);
+  };
+
   // File Reader
   useEffect(() => {
     fileReader(setPreviewPhoto, selectedPhoto);
-    fileReader(setPreviewFileCertificate, fileCertificate);
-  }, [selectedPhoto, fileCertificate]);
+  }, [selectedPhoto]);
 
-  // Custome Input File
+  // Custome Input File Photo Profile
   const fileInput = useRef();
 
   const handleClick = () => {
     fileInput.current.click();
   };
 
-  // Custome Input File
+  // Custome Input File Certificate
   const fileInputCertificate = useRef();
 
   const handleCertificateClick = () => {
@@ -167,51 +187,65 @@ export default function FormProfile() {
           </Row>
 
           <Form.Label>Upload your works / certificates / achievements</Form.Label>
-          <div>
-            <div
-              className="border rounded"
-              style={{ cursor: "pointer", width: "100&", height: "auto" }}
-              onClick={handleCertificateClick}
-            >
-              {previewFileCertificate ? (
-                <div>
-                  <img
-                    src={previewFileCertificate}
-                    alt=""
-                    style={{ objectFit: "cover", width: "100%", height: "auto" }}
-                  />
+          {certificateFields?.map((item, index) => (
+            <div key={index}>
+              <div>
+                <div
+                  className="border rounded"
+                  style={{ cursor: "pointer", width: "100&", height: "auto" }}
+                  onClick={handleCertificateClick}
+                >
+                  {item.file ? (
+                    <div>
+                      <img
+                        src={item.file && URL.createObjectURL(item.file)}
+                        alt=""
+                        style={{ objectFit: "cover", width: "100%", height: "auto" }}
+                      />
+                    </div>
+                  ) : (
+                    <div className="text-center text-black-50" style={{ paddingTop: "60px", paddingBottom: "60px" }}>
+                      <AiOutlineCloudUpload size="90px" />
+                      <p>Upload Your Document</p>
+                    </div>
+                  )}
                 </div>
-              ) : (
-                <div className="text-center text-black-50" style={{ paddingTop: "60px", paddingBottom: "60px" }}>
-                  <AiOutlineCloudUpload size="90px" />
-                  <p>Upload Your Document</p>
-                </div>
-              )}
-            </div>
 
-            <Form.Group className="mb-4">
-              <Form.Control
-                type="file"
-                name="file"
-                className="d-none"
-                ref={fileInputCertificate}
-                onChange={onFileCertificate}
-              />
-            </Form.Group>
-          </div>
+                <Form.Group className="mb-4">
+                  <Form.Control
+                    type="file"
+                    name="file"
+                    className="d-none"
+                    ref={fileInputCertificate}
+                    onChange={(e) => onCertificateChange(index, e)}
+                  />
+                </Form.Group>
+              </div>
+
+              <Row className="mb-4">
+                <Form.Group as={Col} lg={6}>
+                  <Form.Control
+                    type="text"
+                    name="name"
+                    placeholder="Name Documents"
+                    value={item.name}
+                    onChange={(e) => onCertificateChange(index, e)}
+                  />
+                </Form.Group>
+
+                {index ? (
+                  <Form.Group as={Col} lg={6}>
+                    <Button onClick={removeCertificateFields}>Remove</Button>
+                  </Form.Group>
+                ) : null}
+              </Row>
+            </div>
+          ))}
         </Form>
 
-        <Row className="mb-4">
-          <Form.Group as={Col} lg={6}>
-            <Form.Control
-              type="text"
-              name="name"
-              placeholder="Name Documents"
-              value={nameCertificate}
-              onChange={onNameCertificate}
-            />
-          </Form.Group>
-        </Row>
+        <Button variant="outline-primary mb-4" onClick={addCertificateFields}>
+          Add More +
+        </Button>
 
         <Button className="w-100" onClick={() => setShow(true)}>
           Preview Portofolio
@@ -229,9 +263,7 @@ export default function FormProfile() {
         email={email}
         phone={phone}
         socMed={socMed}
-        fileCertificate={fileCertificate}
-        previewFileCertificate={previewFileCertificate}
-        nameCertificate={nameCertificate}
+        certificates={certificateFields}
       />
 
       <hr />

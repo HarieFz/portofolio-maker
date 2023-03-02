@@ -17,9 +17,7 @@ export default function PreviewPortofolio({
   email,
   phone,
   socMed,
-  fileCertificate,
-  previewFileCertificate,
-  nameCertificate,
+  certificates,
 }) {
   const [finish, setFinish] = useState(false);
 
@@ -54,9 +52,7 @@ export default function PreviewPortofolio({
           email={email}
           phone={phone}
           socMed={socMed}
-          fileCertificate={fileCertificate}
-          previewFileCertificate={previewFileCertificate}
-          nameCertificate={nameCertificate}
+          certificates={certificates}
         />
       </Modal.Body>
       <Modal.Footer>

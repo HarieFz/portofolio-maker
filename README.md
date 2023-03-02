@@ -1,7 +1,8 @@
 # PR
 
-- Multiple preview certificate
+- Multiple preview certificate [x]
 - export pdf [x]
+- choose template
 
 // backend
 

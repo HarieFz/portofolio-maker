@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { FiMail } from "react-icons/fi";
 import { BsTelephone } from "react-icons/bs";
 import { FaInstagram } from "react-icons/fa";
+import { fileReader } from "../../../utils/fileReader";
 
 export default function ViewPortofolio({
   previewPhoto,
@@ -13,9 +14,18 @@ export default function ViewPortofolio({
   email,
   phone,
   socMed,
-  previewFileCertificate,
-  nameCertificate,
+  certificates,
 }) {
+  const [preview, setPreview] = useState([]);
+
+  console.log(preview);
+
+  useEffect(() => {
+    certificates.map((item) => {
+      return fileReader(setPreview, item.files);
+    });
+  }, [certificates]);
+
   return (
     <div>
       <div className="stupo__wrapper">
@@ -86,20 +96,12 @@ export default function ViewPortofolio({
 
         <h4 className="mb-4">Portofolio</h4>
 
-        <img src={previewFileCertificate} alt="" width="100%" style={{ objectFit: "cover" }} />
-        <p className="mt-3 mb-4">{nameCertificate}</p>
-
-        <img src={previewFileCertificate} alt="" width="100%" style={{ objectFit: "cover" }} />
-        <p className="mt-3 mb-4">{nameCertificate}</p>
-
-        <img src={previewFileCertificate} alt="" width="100%" style={{ objectFit: "cover" }} />
-        <p className="mt-3 mb-4">{nameCertificate}</p>
-
-        <img src={previewFileCertificate} alt="" width="100%" style={{ objectFit: "cover" }} />
-        <p className="mt-3 mb-4">{nameCertificate}</p>
-
-        <img src={previewFileCertificate} alt="" width="100%" style={{ objectFit: "cover" }} />
-        <p className="mt-3 mb-4">{nameCertificate}</p>
+        {certificates?.map((item, index) => (
+          <div key={index}>
+            <img src={item.file && URL.createObjectURL(item.file)} alt="" width="100%" style={{ objectFit: "cover" }} />
+            <p className="mt-3 mb-4">{item.name}</p>
+          </div>
+        ))}
       </div>
     </div>
   );
