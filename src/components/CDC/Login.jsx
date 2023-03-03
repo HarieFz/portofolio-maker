@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Banner from "../../assets/login-banner.png";
 import Logo from "../../assets/logo.png";
 
-export default function Login() {
+export default function LoginCDC() {
   return (
     <Container>
       <Row className="d-flex justify-content-center align-items-center" style={{ marginTop: "70px" }}>

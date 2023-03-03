@@ -3,7 +3,7 @@ import Banner from "../Banner";
 import Portofolio from "./Portofolio";
 import TopBar from "./TopBar";
 
-export default function Dashboard() {
+export default function DashboardCDC() {
   return (
     <div>
       <TopBar />

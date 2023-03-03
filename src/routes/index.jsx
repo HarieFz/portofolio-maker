@@ -1,11 +1,15 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Dashboard from "../components/KetuaCDC/Dashboard";
-import Login from "../components/KetuaCDC/Login";
+import DashboardCDC from "../components/CDC/Dashboard";
+import DashboardAdmin from "../components/Admin/Dashboard";
+import LoginCDC from "../components/CDC/Login";
+import LoginAdmin from "../components/Admin/Login";
 import Layout from "../components/Layout";
 import EditPortofolio from "../pages/EditPortofolio";
 import Home from "../pages/Home";
 import Template from "../pages/Template";
+import ProtectedRouteAdmin from "./Admin/ProtectedRoute";
+import PrivateRouteAdmin from "./Admin/PrivateRoute";
 
 export default function SetupRouter() {
   return (
@@ -19,14 +23,17 @@ export default function SetupRouter() {
 
         {/* CDC */}
         <Route path="/cdc">
-          <Route index element={<Login />} />
-          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="login" element={<LoginCDC />} />
+          <Route path="dashboard" element={<DashboardCDC />} />
         </Route>
 
         {/* Admin */}
-        <Route path="/admin">
-          <Route index element={<Login />} />
-          <Route path="admin-page" element={<Dashboard />} />
+        <Route path="/admin" element={<ProtectedRouteAdmin />}>
+          <Route path="login" element={<LoginAdmin />} />
+        </Route>
+
+        <Route path="/admin" element={<PrivateRouteAdmin />}>
+          <Route path="dashboard" element={<DashboardAdmin />} />
         </Route>
       </Routes>
     </BrowserRouter>
