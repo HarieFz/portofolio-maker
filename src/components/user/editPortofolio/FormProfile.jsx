@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import PreviewPortofolio from "./PreviewPortofolio";
@@ -8,7 +8,8 @@ export default function FormProfile() {
   const { state } = useLocation();
 
   // State Form
-  const [selectedPhoto, setSelectedPhoto] = useState(state.photo);
+  const [selectedPhoto, setSelectedPhoto] = useState(state?.photo);
+  const [previewPhoto, setPreviewPhoto] = useState();
   const [name, setName] = useState(state.name);
   const [skill, setSkill] = useState(state.skill);
   const [aboutMe, setAboutMe] = useState(state.about_me);
@@ -89,6 +90,12 @@ export default function FormProfile() {
   // Validate is File or not
   const isFile = (input) => "File" in window && input instanceof File;
 
+  // File Reader
+  useEffect(() => {
+    const photoURL = isFile(selectedPhoto) && URL.createObjectURL(selectedPhoto);
+    setPreviewPhoto(photoURL);
+  }, [selectedPhoto]);
+
   // Modal
   const [show, setShow] = useState(false);
 
@@ -100,7 +107,7 @@ export default function FormProfile() {
           <div className="d-flex mb-4" onClick={handleClick}>
             <div className="rounded-circle shadow" style={{ cursor: "pointer", width: "150px", height: "150px" }}>
               <img
-                src={isFile(selectedPhoto) ? URL.createObjectURL(selectedPhoto) : selectedPhoto}
+                src={previewPhoto ? previewPhoto : selectedPhoto}
                 alt="Preview"
                 className="rounded-circle p-1"
                 style={{ width: "100%", height: "100%", objectFit: "cover" }}
