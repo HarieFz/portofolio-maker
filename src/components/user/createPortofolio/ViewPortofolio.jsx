@@ -88,7 +88,12 @@ export default function ViewPortofolio({
 
         {certificates?.map((item, index) => (
           <div key={index}>
-            <img src={item.file && URL.createObjectURL(item.file)} alt="" width="100%" style={{ objectFit: "cover" }} />
+            <img
+              src={item?.file && URL.createObjectURL(item?.file)}
+              alt=""
+              width="100%"
+              style={{ objectFit: "cover" }}
+            />
             <p className="mt-3 mb-4">{item.name}</p>
           </div>
         ))}
