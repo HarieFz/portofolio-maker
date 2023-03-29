@@ -35,6 +35,22 @@
   outline: 2px solid #094b72;
 }
 
+.text-link > a {
+  color: #094b72 !important;
+}
+
+.text-link > a:hover {
+  color: #ffffff !important;
+}
+
+.icon-delete {
+  color: #094b72;
+}
+
+.icon-delete:hover {
+  color: #073f5f;
+}
+
 .hero__bg {
   background-image: url("./assets/bg-hero.png");
   background-repeat: no-repeat;
@@ -104,11 +120,6 @@
 }
 .stripe2:before {
   margin-right: 10px;
-}
-
-a {
-  color: #000000 !important;
-  text-decoration: none !important;
 }
 
 .editporto__round-pict {

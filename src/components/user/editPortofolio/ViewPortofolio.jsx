@@ -3,29 +3,28 @@ import { Col, Row } from "react-bootstrap";
 import { FiMail } from "react-icons/fi";
 import { BsTelephone } from "react-icons/bs";
 import { FaInstagram } from "react-icons/fa";
-import Arsitek from "../../../assets/arsitek.png";
 
 export default function ViewPortofolio({
+  bg,
   photo,
   name,
   skill,
   aboutMe,
-  achievments,
   email,
   phone,
   socMed,
-  certificates,
+  achievments,
+  work,
+  education,
+  organization,
+  projects,
 }) {
   const isFile = (input) => "File" in window && input instanceof File;
 
   return (
     <div>
       <div className="stupo__wrapper">
-        <img
-          src={Arsitek}
-          alt=""
-          style={{ width: "100%", height: "200px", objectFit: "cover", objectPosition: "bottom" }}
-        />
+        <img src={bg} alt="" style={{ width: "100%", height: "200px", objectFit: "cover", objectPosition: "bottom" }} />
         <div className="stupo__overlay stupo__overlay1" />
       </div>
 
@@ -56,19 +55,6 @@ export default function ViewPortofolio({
           <Col lg={9}>{aboutMe}</Col>
         </Row>
 
-        <Row className="mb-4">
-          <Col lg={3}>
-            <h4>Achievment</h4>
-          </Col>
-          <Col lg={9}>
-            <ul>
-              {achievments?.map((item, index) => (
-                <li key={index}>{item.achievment}</li>
-              ))}
-            </ul>
-          </Col>
-        </Row>
-
         <Row>
           <Col>
             <FiMail className="me-2" />
@@ -86,17 +72,92 @@ export default function ViewPortofolio({
 
         <hr />
 
-        <h4 className="mb-4">Portofolio</h4>
+        <h4 className="mb-4">Achievment</h4>
 
-        {certificates?.map((item, index) => (
-          <div key={index}>
+        {achievments?.map((item, index) => (
+          <div key={index} className="mb-4">
+            <div className="d-flex justify-content-between">
+              <p>{item.name}</p>
+              <p>{item.year}</p>
+            </div>
             <img
-              src={isFile(item.file) ? URL.createObjectURL(item.file) : item.file}
+              src={isFile(item.file) ? URL.createObjectURL(item.file) : item.file.url}
               alt=""
               width="100%"
               style={{ objectFit: "cover" }}
             />
-            <p className="mt-3 mb-4">{item.name}</p>
+          </div>
+        ))}
+
+        <hr />
+
+        <h4 className="mb-4">Work Experience</h4>
+
+        {work?.map((item, index) => (
+          <div key={index} className="mb-4">
+            <div className="d-flex justify-content-between">
+              <p className="fw-bold">{item.name}</p>
+              <p>{item.year}</p>
+            </div>
+
+            <div className="d-flex justify-content-between">
+              <p>{item.company}</p>
+              <p>{item.location}</p>
+            </div>
+          </div>
+        ))}
+
+        <hr />
+
+        <h4 className="mb-4">Education</h4>
+
+        {education?.map((item, index) => (
+          <div key={index} className="mb-4">
+            <div className="d-flex justify-content-between">
+              <p className="fw-bold">{item.name}</p>
+              <p>{item.year}</p>
+            </div>
+
+            <div className="d-flex justify-content-between">
+              <p>{item.study}</p>
+            </div>
+          </div>
+        ))}
+
+        <hr />
+
+        <h4 className="mb-4">Organization</h4>
+
+        {organization?.map((item, index) => (
+          <div key={index} className="mb-4">
+            <div className="d-flex justify-content-between">
+              <p className="fw-bold">{item.name}</p>
+              <p>{item.year}</p>
+            </div>
+
+            <div className="d-flex justify-content-between">
+              <p>{item.role}</p>
+            </div>
+          </div>
+        ))}
+
+        <hr />
+
+        <h4 className="mb-4">Projects</h4>
+
+        {projects?.map((item, index) => (
+          <div key={index} className="mb-4">
+            <img
+              src={isFile(item.file) ? URL.createObjectURL(item.file) : item.file.url}
+              alt=""
+              width="100%"
+              style={{ objectFit: "cover" }}
+            />
+
+            <div className="d-flex justify-content-between">
+              <p>{item.name}</p>
+              <p>{item.year}</p>
+            </div>
           </div>
         ))}
       </div>

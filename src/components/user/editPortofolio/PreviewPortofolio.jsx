@@ -10,65 +10,72 @@ import ViewPortofolio from "./ViewPortofolio";
 export default function PreviewPortofolio({
   show,
   setShow,
+  bg,
   photo,
   name,
   skill,
   aboutMe,
-  achievments,
   email,
   phone,
   socMed,
-  certificates,
+  achievments,
+  work,
+  education,
+  organization,
+  projects,
 }) {
+  // Utils
   const user = auth.currentUser;
   const isFile = (input) => "File" in window && input instanceof File;
-  const isString = (input) => typeof input === "string";
   const [isLoading, setIsLoading] = useState(false);
 
   // Container File
   const [filePhoto, setFilePhoto] = useState(null);
-  const [fileCertif, setFileCertif] = useState([]);
-
-  // Percentage Transfer Data to Storage Cloud
-  const [percentPhoto, setPercentPhoto] = useState(0);
-  const [percentCertif, setPercentCertif] = useState(0);
+  const [fileAchievments, setFileAchievments] = useState([]);
+  const [fileProjects, setFileProjects] = useState([]);
 
   // Container File URL Storage Cloud
-  const [certifURL, setCertifURL] = useState([]);
+  const [achievmentURL, setAchievmentURL] = useState([]);
+  const [projectURL, setProjectURL] = useState([]);
 
-  // Filter is File or Not
+  // Filter is File or URL
   useEffect(() => {
     if (isFile(photo)) {
       setFilePhoto(photo);
     }
 
-    const isFileCertif = certificates?.filter((item) => {
+    // Separate Achievments File and URL
+    const isFileAchievment = achievments?.filter((item) => {
       return isFile(item.file);
     });
 
-    setFileCertif(isFileCertif);
+    setFileAchievments(isFileAchievment);
 
-    const isStringCertif = certificates?.filter((item) => {
-      return isString(item.file);
+    const isURLAchievment = achievments?.filter((item) => {
+      return item?.file?.url;
     });
 
-    setCertifURL(isStringCertif);
-  }, [certificates, percentCertif, percentPhoto, photo]);
+    setAchievmentURL(isURLAchievment);
+
+    // Separate Projects File and URL
+    const isFileProject = projects?.filter((item) => {
+      return isFile(item.file);
+    });
+
+    setFileProjects(isFileProject);
+
+    const isURLProject = projects?.filter((item) => {
+      return item?.file?.url;
+    });
+
+    setProjectURL(isURLProject);
+  }, [achievments, photo, projects]);
 
   const handlePhoto = async () => {
     if (!filePhoto) return;
     const path = `photos/${photo?.name}`;
     const storageRef = ref(storage, path);
     const uploadTask = uploadBytesResumable(storageRef, filePhoto);
-
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        const percent = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-        setPercentPhoto(percent);
-      },
-      (err) => console.log(err)
-    );
 
     await uploadTask;
 
@@ -77,59 +84,85 @@ export default function PreviewPortofolio({
     return downloadURL;
   };
 
-  const handleCertificates = async () => {
-    if (!fileCertif) return;
+  const handleAchievments = async () => {
+    if (!fileAchievments) return;
 
-    const dataCertif = [];
+    var dataAchievments = [];
 
-    for (const data of fileCertif) {
-      const path = `certificates/${data?.file?.name}`;
+    for (const data of fileAchievments) {
+      const path = `achievments/${data?.file?.name}`;
       const storageRef = ref(storage, path);
       const uploadTask = uploadBytesResumable(storageRef, data?.file);
-
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          const percent = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-          setPercentCertif(percent);
-        },
-        (err) => console.log(err)
-      );
 
       await uploadTask;
 
       let downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
 
-      dataCertif.push({ file: downloadURL, name: data.name });
+      dataAchievments.push({
+        file: { url: downloadURL, name: data.file.name, size: data.file.size },
+        name: data.name,
+        year: data.year,
+      });
     }
 
-    return dataCertif;
+    return dataAchievments;
   };
 
-  const createPost = async (photoURL, certifURL) => {
+  const handleProjects = async () => {
+    if (!fileProjects) return;
+
+    var dataProjects = [];
+
+    for (const data of fileProjects) {
+      const path = `projects/${data?.file?.name}`;
+      const storageRef = ref(storage, path);
+      const uploadTask = uploadBytesResumable(storageRef, data?.file);
+
+      await uploadTask;
+
+      let downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+
+      dataProjects.push({
+        file: { url: downloadURL, name: data.file.name, size: data.file.size },
+        name: data.name,
+        year: data.year,
+      });
+    }
+
+    return dataProjects;
+  };
+
+  const createPost = async (photoURL, achievmentURL, projectURL) => {
     try {
       await updateDoc(doc(db, "portofolio", user.uid), {
         user_uid: user.uid,
+        bg,
         photo: photoURL ? photoURL : photo,
         name,
         skill,
         about_me: aboutMe,
-        achievments,
         email,
         phone,
         socmed: socMed,
-        certificates: certifURL,
+        achievments: achievmentURL,
+        work,
+        education,
+        organization,
+        projects: projectURL,
         created_at: Timestamp.now(),
       });
       Swal.fire("Good job!", "Updated Portfolio is Successfully!", "success");
       setFilePhoto(null);
-      setFileCertif([]);
-      setPercentPhoto(0);
-      setPercentCertif(0);
-      setCertifURL([]);
+      setFileAchievments([]);
+      setFileProjects([]);
+
+      setAchievmentURL([]);
+      setProjectURL([]);
+
       setIsLoading(false);
     } catch (err) {
       Swal.fire("Something Error!", "Something Error!", "error");
+      setIsLoading(false);
       console.error(err);
     }
   };
@@ -140,9 +173,10 @@ export default function PreviewPortofolio({
     setIsLoading(true);
 
     const photoURL = await handlePhoto();
-    const newCertifURL = await handleCertificates();
+    const newAchievmentURL = await handleAchievments();
+    const newProjectURL = await handleProjects();
 
-    createPost(photoURL, [...certifURL, ...newCertifURL]);
+    createPost(photoURL, [...achievmentURL, ...newAchievmentURL], [...projectURL, ...newProjectURL]);
   };
 
   return (
@@ -152,15 +186,19 @@ export default function PreviewPortofolio({
       </Modal.Header>
       <Modal.Body>
         <ViewPortofolio
+          bg={bg}
           photo={photo}
           name={name}
           skill={skill}
           aboutMe={aboutMe}
-          achievments={achievments}
           email={email}
           phone={phone}
           socMed={socMed}
-          certificates={certificates}
+          achievments={achievments}
+          work={work}
+          education={education}
+          organization={organization}
+          projects={projects}
         />
       </Modal.Body>
       <Modal.Footer>

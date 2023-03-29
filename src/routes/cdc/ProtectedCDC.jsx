@@ -4,7 +4,7 @@ import { Navigate, Outlet } from "react-router-dom";
 
 export default function ProtectedCDC() {
   if (AuthCDC.getAccessToken()) {
-    return <Navigate to="/cdc/list-portfolio" />;
+    return <Navigate to="/cdc" />;
   }
 
   return <Outlet />;

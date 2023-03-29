@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import { collection, onSnapshot, query } from "firebase/firestore";
 import { db } from "../../config/firebase";
-import Background from "../../assets/arsitek.png";
 import Banner from "../../components/user/share/Banner";
 import PreviewPortfolio from "./PreviewPortfolio";
 import Swal from "sweetalert2";
@@ -52,7 +51,7 @@ export default function ListPortfolio() {
   return (
     <Container>
       <Banner content="Dashboard E-Portfolio CDC" />
-      {isLoading && <p>Loading...</p>}
+      {isLoading && <h2 className="text-center mt-5">Loading...</h2>}
       <Row className="justify-content-md-center gy-4 mb-5">
         {data?.map((data) => (
           <Col lg={5} key={data.user_uid}>
@@ -60,7 +59,7 @@ export default function ListPortfolio() {
               <div className="stupo__wrapper">
                 <Card.Img
                   variant="top"
-                  src={Background}
+                  src={data.bg}
                   className="rounded"
                   style={{ objectFit: "cover", objectPosition: "bottom", height: "80px" }}
                 />

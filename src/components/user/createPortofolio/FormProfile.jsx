@@ -3,7 +3,7 @@ import { AiOutlineCloudUpload } from "react-icons/ai";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import PreviewPortofolio from "./PreviewPortofolio";
 import ModalBg from "./ModalBg";
-import { BsFillFileEarmarkFill } from "react-icons/bs";
+import { BsFillFileEarmarkFill, BsFillXCircleFill } from "react-icons/bs";
 import { bytesConverter } from "../../../utils/bytesConverter";
 
 const defaultBg =
@@ -524,13 +524,13 @@ export default function FormProfile() {
                     </div>
 
                     <div className="p-2 my-auto ms-auto">
-                      <Button
+                      <BsFillXCircleFill
+                        className="icon-delete"
+                        style={{ cursor: "pointer" }}
                         onClick={() =>
                           setProjects(projects.map((item, i) => (i === index ? { ...item, file: null } : item)))
                         }
-                      >
-                        Cancel
-                      </Button>
+                      />
                     </div>
                   </div>
                 )}
@@ -588,6 +588,7 @@ export default function FormProfile() {
       <PreviewPortofolio
         show={show}
         setShow={setShow}
+        bg={selectedBg}
         photo={selectedPhoto}
         name={name}
         skill={skill}
@@ -595,6 +596,11 @@ export default function FormProfile() {
         email={email}
         phone={phone}
         socMed={socMed}
+        achievments={achievments}
+        work={work}
+        education={education}
+        organization={organization}
+        projects={projects}
       />
       <ModalBg show={showBg} setShow={setShowBg} selectedBg={selectedBg} onSelectedBg={onSelectedBg} />
 

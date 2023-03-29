@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { BsDownload } from "react-icons/bs";
+import { Link } from "react-router-dom";
 import * as htmlToImage from "html-to-image";
 import jsPDF from "jspdf";
 import ViewPortofolio from "./ViewPortofolio";
@@ -28,7 +29,18 @@ export default function PreviewPortfolio({ data, setShow, show }) {
         <ViewPortofolio data={data} />
       </Modal.Body>
       <Modal.Footer>
-        <div className="d-flex mx-auto">
+        <div className="d-flex gap-3 mx-auto">
+          <Button
+            variant="outline-primary"
+            className="text-link px-5"
+            as={Link}
+            to={`/portofolio/${data?.user_uid}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Publish Portfolio
+          </Button>
+
           <Button className="px-5" onClick={eksportPDF} disabled={isLoading}>
             {isLoading ? (
               "Downloading..."

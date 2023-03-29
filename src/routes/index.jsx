@@ -45,7 +45,7 @@ export default function SetupRouter() {
         </Route>
 
         <Route path="/cdc" element={<PrivateCDC />}>
-          <Route path="list-portfolio" element={<ListPortfolioCDC />} />
+          <Route index element={<ListPortfolioCDC />} />
         </Route>
 
         {/* Admin */}
@@ -55,7 +55,7 @@ export default function SetupRouter() {
         </Route>
 
         <Route path="/admin" element={<PrivateAdmin />}>
-          <Route path="list-portfolio" element={<ListPortfolioAdmin />} />
+          <Route index element={<ListPortfolioAdmin />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -62,7 +62,7 @@ export default function Profile() {
 
   const copyToClipboard = () => {
     try {
-      navigator.clipboard.writeText(`http://localhost:3000/portofolio/${uid}`);
+      navigator.clipboard.writeText(`https://cdc-portfolio-maker.netlify.app/portofolio/${uid}`);
       Toast.fire({
         title: "Link URL Copied",
         color: "#ffffff",
@@ -97,7 +97,7 @@ export default function Profile() {
                   state: data,
                 })
               }
-              disabled={data === undefined}
+              disabled={data === undefined || isLoading}
             >
               <BiEdit size={20} className="me-2" />
               Edit Portfolio
@@ -133,7 +133,13 @@ export default function Profile() {
                 )}
 
                 <div className="d-flex gap-4 mx-5 mb-3">
-                  <Button className="py-2 w-100 text-white" as={Link} to={`/portofolio/${uid}`}>
+                  <Button
+                    className="py-2 w-100 text-white"
+                    as={Link}
+                    to={`/portofolio/${uid}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <BsUpload className="me-2" />
                     Publish Portofolio
                   </Button>

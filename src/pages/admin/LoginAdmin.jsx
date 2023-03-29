@@ -34,7 +34,7 @@ export default function LoginAdmin() {
           timer: 1500,
         });
         setIsLoading(false);
-        navigate("/admin/list-portfolio");
+        navigate("/admin");
       })
       .catch((err) => {
         setIsLoading(false);

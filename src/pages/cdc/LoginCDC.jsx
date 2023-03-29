@@ -34,7 +34,7 @@ export default function LoginCDC() {
           timer: 1500,
         });
         setIsLoading(false);
-        navigate("/cdc/list-portfolio");
+        navigate("/cdc");
       })
       .catch((err) => {
         setIsLoading(false);

@@ -10,37 +10,29 @@ import ViewPortofolio from "./ViewPortofolio";
 export default function PreviewPortofolio({
   show,
   setShow,
+  bg,
   photo,
   name,
   skill,
   aboutMe,
-  achievments,
   email,
   phone,
   socMed,
-  certificates,
+  achievments,
+  work,
+  education,
+  organization,
+  projects,
 }) {
   // Current User
   const user = auth.currentUser;
-
-  // Percentage Transfer Data to Storage Cloud
-  const [percentPhoto, setPercentPhoto] = useState(0);
-  const [percentCertif, setPercentCertif] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handlePhoto = async () => {
     if (!photo) return;
     const path = `photos/${photo?.name}`;
     const storageRef = ref(storage, path);
     const uploadTask = uploadBytesResumable(storageRef, photo);
-
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        const percent = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-        setPercentPhoto(percent);
-      },
-      (err) => console.log(err)
-    );
 
     await uploadTask;
 
@@ -49,54 +41,76 @@ export default function PreviewPortofolio({
     return downloadURL;
   };
 
-  const handleCertificates = async () => {
-    if (!certificates) return;
+  const handleAchievments = async () => {
+    if (!achievments) return;
 
-    var dataCertif = [];
+    var dataAchievments = [];
 
-    for (const data of certificates) {
-      const path = `certificates/${data?.file?.name}`;
+    for (const data of achievments) {
+      const path = `achievments/${data?.file?.name}`;
       const storageRef = ref(storage, path);
       const uploadTask = uploadBytesResumable(storageRef, data?.file);
-
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          const percent = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-          setPercentCertif(percent);
-        },
-        (err) => console.log(err)
-      );
 
       await uploadTask;
 
       let downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
 
-      dataCertif.push({ file: downloadURL, name: data.name });
+      dataAchievments.push({
+        file: { url: downloadURL, name: data.file.name, size: data.file.size },
+        name: data.name,
+        year: data.year,
+      });
     }
 
-    return dataCertif;
+    return dataAchievments;
+  };
+
+  const handleProjects = async () => {
+    if (!projects) return;
+
+    var dataProjects = [];
+
+    for (const data of projects) {
+      const path = `projects/${data?.file?.name}`;
+      const storageRef = ref(storage, path);
+      const uploadTask = uploadBytesResumable(storageRef, data?.file);
+
+      await uploadTask;
+
+      let downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+
+      dataProjects.push({
+        file: { url: downloadURL, name: data.file.name, size: data.file.size },
+        name: data.name,
+        year: data.year,
+      });
+    }
+
+    return dataProjects;
   };
 
   // Create Post
-  const createPost = async (photoURL, certifURL) => {
+  const createPost = async (photoURL, achievmentURL, projectURL) => {
     try {
       await setDoc(doc(db, "portofolio", user.uid), {
         user_uid: user.uid,
+        bg,
         photo: photoURL,
         name,
         skill,
         about_me: aboutMe,
-        achievments,
         email,
         phone,
         socmed: socMed,
-        certificates: certifURL,
+        achievments: achievmentURL,
+        work,
+        education,
+        organization,
+        projects: projectURL,
         created_at: Timestamp.now(),
       });
       Swal.fire("Success!", "Created Portfolio is Successfully!", "success");
-      setPercentPhoto(0);
-      setPercentCertif(0);
+      setIsLoading(false);
     } catch (err) {
       Swal.fire("Something Error!", "Something Error!", "error");
       console.error(err);
@@ -106,9 +120,11 @@ export default function PreviewPortofolio({
   // Handle Submit
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     const photoURL = await handlePhoto();
-    const certifURL = await handleCertificates();
-    createPost(photoURL, certifURL);
+    const achievmentURL = await handleAchievments();
+    const projectURL = await handleProjects();
+    createPost(photoURL, achievmentURL, projectURL);
   };
 
   return (
@@ -118,22 +134,26 @@ export default function PreviewPortofolio({
       </Modal.Header>
       <Modal.Body>
         <ViewPortofolio
+          bg={bg}
           photo={photo}
           name={name}
           skill={skill}
           aboutMe={aboutMe}
-          achievments={achievments}
           email={email}
           phone={phone}
           socMed={socMed}
-          certificates={certificates}
+          achievments={achievments}
+          work={work}
+          education={education}
+          organization={organization}
+          projects={projects}
         />
       </Modal.Body>
       <Modal.Footer>
         <div className="d-flex mx-auto">
-          <Button variant="primary px-5 py-2" onClick={handleSubmit} disabled={percentPhoto + percentCertif / 2 > 0}>
+          <Button variant="primary px-5 py-2" onClick={handleSubmit} disabled={isLoading}>
             <BsCheck2All className="me-2" />
-            {percentPhoto + percentCertif / 2 > 0 ? `${percentPhoto + percentCertif / 2}` : "Save"}
+            {isLoading ? `Loading...` : "Save"}
           </Button>
         </div>
       </Modal.Footer>
