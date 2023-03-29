@@ -37,7 +37,9 @@ export default function TopBar() {
                 <Button as={Link} to="/login" className="text-white">
                   Login
                 </Button>
-                <Button variant="outline-primary">Register</Button>
+                <Button as={Link} to="/register" variant="outline-primary">
+                  Register
+                </Button>
               </>
             )}
           </Nav>
