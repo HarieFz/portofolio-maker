@@ -40,6 +40,9 @@ export default function Login() {
       .catch((err) => {
         setIsLoading(false);
         console.error(err);
+        if (err.code === "auth/user-not-found") {
+          return Swal.fire("Something Error!", "User not found!", "error");
+        }
         Swal.fire("Something Error!", "Please check again Email and Password", "error");
       });
   };

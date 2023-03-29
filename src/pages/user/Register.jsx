@@ -43,6 +43,9 @@ export default function Register() {
       .catch((err) => {
         setIsLoading(false);
         console.error(err);
+        if (err.code === "auth/email-already-in-use") {
+          return Swal.fire("Something Error!", "Email already in use", "error");
+        }
         Swal.fire("Something Error!", "Please try again later", "error");
       });
   };
