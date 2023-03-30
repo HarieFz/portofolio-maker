@@ -4,20 +4,33 @@ import { BsDownload } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import * as htmlToImage from "html-to-image";
 import jsPDF from "jspdf";
-import ViewPortofolio from "./ViewPortofolio";
+import ViewPortofolio from "../../components/share/ViewPortofolio";
 
 export default function PreviewPortfolio({ data, setShow, show }) {
   const [isLoading, setIsLoading] = useState(false);
 
   const eksportPDF = () => {
-    setIsLoading(true);
-    htmlToImage.toCanvas(document.getElementById("pdf"), { quality: 1 }).then(function (canvas) {
-      const dataUrl = canvas.toDataURL("image/png");
-      const pdf = new jsPDF("p", "pt", [canvas.width, canvas.height]);
-      pdf.addImage(dataUrl, "PNG", 0, 0, canvas.width, canvas.height, null, "FAST");
-      pdf.save("portofolio.pdf");
+    try {
+      setIsLoading(true);
+      htmlToImage.toCanvas(document.getElementById("pdf"), { quality: 1 }).then(function (canvas) {
+        if (canvas.width > canvas.height) {
+          const dataUrl = canvas.toDataURL("image/png");
+          const pdf = new jsPDF("l", "pt", [canvas.width, canvas.height]);
+          pdf.addImage(dataUrl, "PNG", 0, 0, canvas.width, canvas.height, null, "FAST");
+          pdf.save("portofolio.pdf");
+          setIsLoading(false);
+        } else {
+          const dataUrl = canvas.toDataURL("image/png");
+          const pdf = new jsPDF("p", "pt", [canvas.width, canvas.height]);
+          pdf.addImage(dataUrl, "PNG", 0, 0, canvas.width, canvas.height, null, "FAST");
+          pdf.save("portofolio.pdf");
+          setIsLoading(false);
+        }
+      });
+    } catch (err) {
       setIsLoading(false);
-    });
+      console.log(err);
+    }
   };
 
   return (

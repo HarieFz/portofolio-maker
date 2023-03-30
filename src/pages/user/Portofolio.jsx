@@ -45,19 +45,17 @@ export default function Portofolio() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // isEmpty
+  const isEmpty = (value) => value?.every((item) => Object.values(item).every((x) => x === null || x === ""));
+
   return (
     <Container>
       {isLoading ? (
         <h1 className="text-center mt-5">Loading...</h1>
       ) : (
         <div className="shadow">
-          <div className="stupo__wrapper">
-            <img
-              src={bg}
-              alt=""
-              style={{ width: "100%", height: "200px", objectFit: "cover", objectPosition: "bottom" }}
-            />
-            <div className="stupo__overlay stupo__overlay1" />
+          <div>
+            <img src={bg} alt="" width="100%" />
           </div>
 
           <div className="d-flex ms-5">
@@ -102,86 +100,107 @@ export default function Portofolio() {
               </Col>
             </Row>
 
-            <hr />
+            {isEmpty(achievments) ? null : (
+              <>
+                <hr />
 
-            <h4 className="mb-4">Achievment</h4>
+                <h4 className="mb-4">Achievment</h4>
 
-            {achievments?.map((item, index) => (
-              <div key={index} className="mb-4">
-                <div className="d-flex justify-content-between">
-                  <p>{item.name}</p>
-                  <p>{item.year}</p>
-                </div>
-                <img src={item.file.url} alt="" width="100%" style={{ objectFit: "cover" }} />
-              </div>
-            ))}
+                {achievments?.map((item, index) => (
+                  <div key={index} className="mb-4">
+                    <div className="d-flex justify-content-between">
+                      <p>{item.name}</p>
+                      <p>{item.year}</p>
+                    </div>
+                    <img src={item.file.url} alt="" width="100%" style={{ objectFit: "cover" }} />
+                  </div>
+                ))}
+              </>
+            )}
 
-            <hr />
+            {isEmpty(work) ? null : (
+              <>
+                <hr />
 
-            <h4 className="mb-4">Work Experience</h4>
+                <h4 className="mb-4">Work Experience</h4>
 
-            {work?.map((item, index) => (
-              <div key={index} className="mb-4">
-                <div className="d-flex justify-content-between">
-                  <p className="fw-bold">{item.name}</p>
-                  <p>{item.year}</p>
-                </div>
+                {work?.map((item, index) => (
+                  <div key={index} className="mb-4">
+                    <div className="d-flex justify-content-between">
+                      <p className="fw-bold">{item.name}</p>
+                      <p>{item.year}</p>
+                    </div>
 
-                <div className="d-flex justify-content-between">
-                  <p>{item.company}</p>
-                  <p>{item.location}</p>
-                </div>
-              </div>
-            ))}
+                    <div className="d-flex justify-content-between">
+                      <p>
+                        {item.company} | {item.location}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </>
+            )}
 
-            <hr />
+            {isEmpty(education) ? null : (
+              <>
+                <hr />
 
-            <h4 className="mb-4">Education</h4>
+                <h4 className="mb-4">Education</h4>
 
-            {education?.map((item, index) => (
-              <div key={index} className="mb-4">
-                <div className="d-flex justify-content-between">
-                  <p className="fw-bold">{item.name}</p>
-                  <p>{item.year}</p>
-                </div>
+                {education?.map((item, index) => (
+                  <div key={index} className="mb-4">
+                    <div className="d-flex justify-content-between">
+                      <p className="fw-bold">{item.name}</p>
+                      <p>{item.year}</p>
+                    </div>
 
-                <div className="d-flex justify-content-between">
-                  <p>{item.study}</p>
-                </div>
-              </div>
-            ))}
+                    <div className="d-flex justify-content-between">
+                      <p>{item.study}</p>
+                    </div>
+                  </div>
+                ))}
+              </>
+            )}
 
-            <hr />
+            {isEmpty(organization) ? null : (
+              <>
+                <hr />
 
-            <h4 className="mb-4">Organization</h4>
+                <h4 className="mb-4">Organization</h4>
 
-            {organization?.map((item, index) => (
-              <div key={index} className="mb-4">
-                <div className="d-flex justify-content-between">
-                  <p className="fw-bold">{item.name}</p>
-                  <p>{item.year}</p>
-                </div>
+                {organization?.map((item, index) => (
+                  <div key={index} className="mb-4">
+                    <div className="d-flex justify-content-between">
+                      <p className="fw-bold">{item.name}</p>
+                      <p>{item.year}</p>
+                    </div>
 
-                <div className="d-flex justify-content-between">
-                  <p>{item.role}</p>
-                </div>
-              </div>
-            ))}
+                    <div className="d-flex justify-content-between">
+                      <p>{item.role}</p>
+                    </div>
+                  </div>
+                ))}
+              </>
+            )}
 
-            <hr />
+            {isEmpty(projects) ? null : (
+              <>
+                <hr />
 
-            <h4 className="mb-4">Projects</h4>
+                <h4 className="mb-4">Projects</h4>
 
-            {projects?.map((item, index) => (
-              <div key={index} className="mb-4">
-                <img src={item.file.url} alt="" width="100%" style={{ objectFit: "cover" }} />
+                {projects?.map((item, index) => (
+                  <div key={index} className="mb-4">
+                    <img src={item.file.url} alt="" width="100%" style={{ objectFit: "cover" }} />
 
-                <div className="d-flex justify-content-between">
-                  <p>{item.name}</p>
-                  <p>{item.year}</p>
-                </div>
-              </div>
-            ))}
+                    <div className="d-flex justify-content-between">
+                      <p>{item.name}</p>
+                      <p>{item.year}</p>
+                    </div>
+                  </div>
+                ))}
+              </>
+            )}
           </div>
         </div>
       )}

@@ -66,19 +66,6 @@
   padding-bottom: 90px;
 }
 
-.stupo__wrapper {
-  position: relative;
-}
-
-.stupo__overlay {
-  position: absolute;
-  background: rgba(0, 0, 0, 0.5);
-}
-
-.stupo__overlay1 {
-  inset: 0;
-}
-
 .stupo__round-pict {
   margin-top: -35px;
   z-index: 1;

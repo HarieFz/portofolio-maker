@@ -12,7 +12,7 @@ export default function StudentPortofolio() {
 
         {/* Cards */}
         <div className="text-center">
-          <img src={Stupo} alt="" />
+          <img src={Stupo} alt="" className="img-fluid" />
         </div>
       </Container>
     </div>

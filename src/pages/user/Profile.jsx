@@ -8,8 +8,8 @@ import { Link, useNavigate } from "react-router-dom";
 import * as htmlToImage from "html-to-image";
 import Cookies from "js-cookie";
 import jsPDF from "jspdf";
-import Portofolio from "../../components/user/share/ViewPortofolio";
 import Swal from "sweetalert2";
+import ViewPortofolio from "../../components/share/ViewPortofolio";
 
 export default function Profile() {
   const navigate = useNavigate();
@@ -44,14 +44,27 @@ export default function Profile() {
   }, []);
 
   const eksportPDF = () => {
-    setIsLoadingEksport(true);
-    htmlToImage.toCanvas(document.getElementById("pdf"), { quality: 1 }).then(function (canvas) {
-      const dataUrl = canvas.toDataURL("image/png");
-      const pdf = new jsPDF("p", "pt", [canvas.width, canvas.height]);
-      pdf.addImage(dataUrl, "PNG", 0, 0, canvas.width, canvas.height, null, "FAST");
-      pdf.save("portofolio.pdf");
+    try {
+      setIsLoadingEksport(true);
+      htmlToImage.toCanvas(document.getElementById("pdf"), { quality: 1 }).then(function (canvas) {
+        if (canvas.width > canvas.height) {
+          const dataUrl = canvas.toDataURL("image/png");
+          const pdf = new jsPDF("l", "pt", [canvas.width, canvas.height]);
+          pdf.addImage(dataUrl, "PNG", 0, 0, canvas.width, canvas.height, null, "FAST");
+          pdf.save("portofolio.pdf");
+          setIsLoadingEksport(false);
+        } else {
+          const dataUrl = canvas.toDataURL("image/png");
+          const pdf = new jsPDF("p", "pt", [canvas.width, canvas.height]);
+          pdf.addImage(dataUrl, "PNG", 0, 0, canvas.width, canvas.height, null, "FAST");
+          pdf.save("portofolio.pdf");
+          setIsLoadingEksport(false);
+        }
+      });
+    } catch (err) {
       setIsLoadingEksport(false);
-    });
+      console.log(err);
+    }
   };
 
   const Toast = Swal.mixin({
@@ -127,33 +140,35 @@ export default function Profile() {
                 {isLoading ? (
                   <p className="text-center my-5">Loading...</p>
                 ) : (
-                  <div className="shadow mb-4" id="pdf">
-                    <Portofolio data={data} />
-                  </div>
-                )}
+                  <>
+                    <div className="shadow mb-4" id="pdf">
+                      <ViewPortofolio data={data} />
+                    </div>
 
-                <div className="d-flex gap-4 mx-5 mb-3">
-                  <Button
-                    className="py-2 w-100 text-white"
-                    as={Link}
-                    to={`/portofolio/${uid}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <BsUpload className="me-2" />
-                    Publish Portofolio
-                  </Button>
-                  <Button variant="outline-primary py-2 w-100" onClick={eksportPDF} disabled={isLoadingEksport}>
-                    {isLoadingEksport ? (
-                      "Downloading..."
-                    ) : (
-                      <>
-                        <BsDownload className="me-2" />
-                        Eksport PDF
-                      </>
-                    )}
-                  </Button>
-                </div>
+                    <div className="d-flex gap-4 mx-5 mb-3">
+                      <Button
+                        className="py-2 w-100 text-white"
+                        as={Link}
+                        to={`/portofolio/${uid}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <BsUpload className="me-2" />
+                        Publish Portofolio
+                      </Button>
+                      <Button variant="outline-primary py-2 w-100" onClick={eksportPDF} disabled={isLoadingEksport}>
+                        {isLoadingEksport ? (
+                          "Downloading..."
+                        ) : (
+                          <>
+                            <BsDownload className="me-2" />
+                            Eksport PDF
+                          </>
+                        )}
+                      </Button>
+                    </div>
+                  </>
+                )}
               </>
             )}
           </Col>

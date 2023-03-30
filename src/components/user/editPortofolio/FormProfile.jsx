@@ -6,6 +6,7 @@ import { useLocation } from "react-router-dom";
 import { bytesConverter } from "../../../utils/bytesConverter";
 import { BsFillFileEarmarkFill, BsFillXCircleFill } from "react-icons/bs";
 import ModalBg from "./ModalBg";
+import { Link } from "react-router-dom";
 
 export default function FormProfile() {
   const { state } = useLocation();
@@ -183,12 +184,19 @@ export default function FormProfile() {
   const [show, setShow] = useState(false);
   const [showBg, setShowBg] = useState(false);
 
+  // isEmpty
+  const isEmpty = (value) => value.every((item) => Object.values(item).every((x) => x === null || x === ""));
+
+  // Disabled Button
+  const btnDisabled =
+    !selectedBg || !selectedPhoto || !name || !skill || !aboutMe || !email || !phone || !socMed || isEmpty(education);
+
   return (
     <div>
       <Container className="mb-5">
-        <Form>
+        <Form className="px-5">
           <div className="d-block mb-4 text-center">
-            <img src={selectedBg} alt="" className="d-block mb-3 mx-auto" />
+            <img src={selectedBg} alt="" width="100%" className="d-block mb-3 mx-auto" />
             <Button variant="outline-primary px-5" onClick={() => setShowBg(true)}>
               Choose Background
             </Button>
@@ -212,18 +220,24 @@ export default function FormProfile() {
 
           <Row className="mb-4">
             <Form.Group as={Col}>
-              <Form.Label>Name</Form.Label>
+              <Form.Label>
+                <span className="text-danger">*</span>Name
+              </Form.Label>
               <Form.Control type="text" placeholder="Your Name" value={name} onChange={onName} />
             </Form.Group>
 
             <Form.Group as={Col}>
-              <Form.Label>Skills</Form.Label>
+              <Form.Label>
+                <span className="text-danger">*</span>Skills
+              </Form.Label>
               <Form.Control type="text" placeholder="Your Skills" value={skill} onChange={onSkill} />
             </Form.Group>
           </Row>
 
           <Form.Group className="mb-4">
-            <Form.Label>About Me</Form.Label>
+            <Form.Label>
+              <span className="text-danger">*</span>About Me
+            </Form.Label>
             <Form.Control
               as="textarea"
               placeholder="Tell About You..."
@@ -235,19 +249,25 @@ export default function FormProfile() {
 
           <Row className="mb-4">
             <Form.Group as={Col}>
-              <Form.Label>Email</Form.Label>
+              <Form.Label>
+                <span className="text-danger">*</span>Email
+              </Form.Label>
               <Form.Control type="text" placeholder="Your Mail" value={email} onChange={onEmail} />
             </Form.Group>
 
             <Form.Group as={Col}>
-              <Form.Label>Phone Number</Form.Label>
+              <Form.Label>
+                <span className="text-danger">*</span>Phone Number
+              </Form.Label>
               <Form.Control type="text" placeholder="Your Number" value={phone} onChange={onPhone} />
             </Form.Group>
           </Row>
 
           <Row className="mb-4">
             <Form.Group as={Col} lg={6}>
-              <Form.Label>Social Media</Form.Label>
+              <Form.Label>
+                <span className="text-danger">*</span>Social Media
+              </Form.Label>
               <Form.Control type="text" placeholder="Your Instagram" value={socMed} onChange={onSocMed} />
             </Form.Group>
           </Row>
@@ -395,7 +415,9 @@ export default function FormProfile() {
             Add More +
           </Button>
 
-          <Form.Label>Education Experience</Form.Label>
+          <Form.Label>
+            <span className="text-danger">*</span>Education
+          </Form.Label>
           {education?.map((item, index) => (
             <div key={index}>
               {index ? <hr className="mb-4" /> : null}
@@ -577,9 +599,14 @@ export default function FormProfile() {
           </Button>
         </Form>
 
-        <Button className="w-100" onClick={() => setShow(true)}>
-          Preview Portofolio
-        </Button>
+        <div className="text-center px-5">
+          <Button className="w-100 mb-4" onClick={() => setShow(true)} disabled={btnDisabled}>
+            Preview Portofolio
+          </Button>
+          <Button variant="outline-primary" className="w-100" as={Link} to={"/profile"}>
+            Back to Profile
+          </Button>
+        </div>
       </Container>
       <PreviewPortofolio
         show={show}

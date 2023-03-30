@@ -4,23 +4,24 @@ import { FiMail } from "react-icons/fi";
 import { BsTelephone } from "react-icons/bs";
 import { FaInstagram } from "react-icons/fa";
 
-export default function ViewPortofolio({
-  bg,
-  photo,
-  name,
-  skill,
-  aboutMe,
-  email,
-  phone,
-  socMed,
-  achievments,
-  work,
-  education,
-  organization,
-  projects,
-}) {
-  const isFile = (input) => "File" in window && input instanceof File;
-  const isEmpty = (value) => value.every((item) => Object.values(item).every((x) => x === null || x === ""));
+export default function ViewPortofolio({ data }) {
+  const {
+    bg,
+    photo,
+    name,
+    skill,
+    about_me,
+    email,
+    phone,
+    socmed,
+    achievments,
+    work,
+    education,
+    organization,
+    projects,
+  } = data;
+
+  const isEmpty = (value) => value?.every((item) => Object.values(item).every((x) => x === null || x === ""));
 
   return (
     <div>
@@ -31,28 +32,28 @@ export default function ViewPortofolio({
       <div className="d-flex ms-5">
         <div className="editporto__round-pict">
           <img
-            src={isFile(photo) ? URL.createObjectURL(photo) : photo}
+            src={photo}
             alt=""
             className="rounded-circle shadow"
-            width="200px"
-            height="200px"
+            width="150px"
+            height="150px"
             style={{ border: "solid 5px #ffffff" }}
           />
         </div>
-        <div className="mt-5 ms-5">
+        <div className="mt-3 ms-3">
           <h4>{name}</h4>
           <p>{skill}</p>
         </div>
       </div>
 
-      <div className="px-5">
+      <div className="px-5 pb-2">
         <hr />
 
         <Row className="mb-4">
           <Col lg={3}>
-            <h4>About Me</h4>
+            <h5>About Me</h5>
           </Col>
-          <Col lg={9}>{aboutMe}</Col>
+          <Col lg={9}>{about_me}</Col>
         </Row>
 
         <Row>
@@ -66,7 +67,7 @@ export default function ViewPortofolio({
           </Col>
           <Col>
             <FaInstagram className="me-2" />
-            {socMed}
+            {socmed}
           </Col>
         </Row>
 
@@ -82,12 +83,7 @@ export default function ViewPortofolio({
                   <p>{item.name}</p>
                   <p>{item.year}</p>
                 </div>
-                <img
-                  src={isFile(item.file) ? URL.createObjectURL(item.file) : item.file?.url}
-                  alt=""
-                  width="100%"
-                  style={{ objectFit: "cover" }}
-                />
+                <img src={item.file.url} alt="" width="100%" style={{ objectFit: "cover" }} />
               </div>
             ))}
           </>
@@ -108,7 +104,7 @@ export default function ViewPortofolio({
 
                 <div className="d-flex justify-content-between">
                   <p>
-                    {item.company} &nbsp; | &nbsp; {item.location}
+                    {item.company} | {item.location}
                   </p>
                 </div>
               </div>
@@ -166,12 +162,7 @@ export default function ViewPortofolio({
 
             {projects?.map((item, index) => (
               <div key={index} className="mb-4">
-                <img
-                  src={isFile(item.file) ? URL.createObjectURL(item.file) : item.file?.url}
-                  alt=""
-                  width="100%"
-                  style={{ objectFit: "cover" }}
-                />
+                <img src={item.file.url} alt="" width="100%" style={{ objectFit: "cover" }} />
 
                 <div className="d-flex justify-content-between">
                   <p>{item.name}</p>

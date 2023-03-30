@@ -52,13 +52,23 @@ export default function Register() {
 
   return (
     <Container>
-      <Row className="d-flex justify-content-center align-items-center" style={{ marginTop: "70px" }}>
-        <Col lg={5} className="text-end">
-          <img src={Banner} alt="" className="rounded" style={{ width: "350px", height: "500px" }} />
+      <Row className="d-flex justify-content-center align-items-center" style={{ marginTop: "50px" }}>
+        <Col lg={5} className="ps-5">
+          <img
+            src={Banner}
+            alt=""
+            className="rounded d-md-none d-sm-none d-none d-lg-block"
+            style={{ width: "350px", height: "500px" }}
+          />
         </Col>
         <Col lg={5} className="text-start">
           <Form onSubmit={register}>
-            <img src={Logo} alt="" className="mb-3" />
+            <div className="mb-4">
+              <img src={Logo} alt="" />
+              <h4 className="mt-4" style={{ color: "#094b72" }}>
+                Register
+              </h4>
+            </div>
             <Form.Group className="mb-3">
               <Form.Label style={{ color: "#094B72" }}>Full Name</Form.Label>
               <Form.Control

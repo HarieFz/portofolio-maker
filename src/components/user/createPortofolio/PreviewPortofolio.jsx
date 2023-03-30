@@ -3,6 +3,7 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import React, { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { BsCheck2All } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { auth, db, storage } from "../../../config/firebase";
 import ViewPortofolio from "./ViewPortofolio";
@@ -26,6 +27,11 @@ export default function PreviewPortofolio({
 }) {
   // Current User
   const user = auth.currentUser;
+
+  // isEmpty
+  const isEmpty = (value) => value.every((item) => Object.values(item).every((x) => x === null || x === ""));
+
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
   const handlePhoto = async () => {
@@ -42,7 +48,7 @@ export default function PreviewPortofolio({
   };
 
   const handleAchievments = async () => {
-    if (!achievments) return;
+    if (isEmpty(achievments)) return;
 
     var dataAchievments = [];
 
@@ -66,7 +72,7 @@ export default function PreviewPortofolio({
   };
 
   const handleProjects = async () => {
-    if (!projects) return;
+    if (isEmpty(projects)) return;
 
     var dataProjects = [];
 
@@ -102,16 +108,18 @@ export default function PreviewPortofolio({
         email,
         phone,
         socmed: socMed,
-        achievments: achievmentURL,
+        achievments: achievmentURL ? achievmentURL : achievments,
         work,
         education,
         organization,
-        projects: projectURL,
+        projects: projectURL ? projectURL : projects,
         created_at: Timestamp.now(),
       });
+      navigate("/profile");
       Swal.fire("Success!", "Created Portfolio is Successfully!", "success");
       setIsLoading(false);
     } catch (err) {
+      setIsLoading(false);
       Swal.fire("Something Error!", "Something Error!", "error");
       console.error(err);
     }
