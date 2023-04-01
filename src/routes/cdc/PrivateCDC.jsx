@@ -1,6 +1,6 @@
 import React from "react";
-import AuthCDC from "../../utils/cdc/AuthCDC";
-import Layout from "../../components/cdc/Layout";
+import AuthCDC from "../../utils/AuthCDC";
+import Layout from "../../pages/cdc/layouts/Layout";
 import { Navigate, Outlet } from "react-router-dom";
 
 export default function PrivateCDC() {

@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
-import { AiOutlineCloudUpload } from "react-icons/ai";
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import PreviewPortofolio from "./PreviewPortofolio";
-import { useLocation } from "react-router-dom";
-import { bytesConverter } from "../../../utils/bytesConverter";
-import { BsFillFileEarmarkFill, BsFillXCircleFill } from "react-icons/bs";
 import ModalBg from "./ModalBg";
+import PreviewPortofolio from "./PreviewPortofolio";
+import { AiOutlineCloudUpload } from "react-icons/ai";
+import { BsFillFileEarmarkFill, BsFillXCircleFill } from "react-icons/bs";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { bytesConverter } from "../../../utils/bytesConverter";
 import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 export default function FormProfile() {
   const { state } = useLocation();

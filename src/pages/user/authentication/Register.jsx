@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { auth, db } from "../../config/firebase";
+import Banner from "../../../assets/login-banner.png";
+import Logo from "../../../assets/logo.png";
+import Swal from "sweetalert2";
+import { addDoc, collection } from "firebase/firestore";
+import { auth, db } from "../../../config/firebase";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
-import Banner from "../../assets/login-banner.png";
-import Logo from "../../assets/logo.png";
-import { addDoc, collection } from "firebase/firestore";
 import { Link } from "react-router-dom";
-import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
   const navigate = useNavigate();

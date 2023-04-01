@@ -4,7 +4,7 @@ import { BsDownload } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import * as htmlToImage from "html-to-image";
 import jsPDF from "jspdf";
-import ViewPortofolio from "../../components/share/ViewPortofolio";
+import ViewPortofolio from "../../../components/ViewPortofolio";
 
 export default function PreviewPortfolio({ data, setShow, show }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -12,7 +12,7 @@ export default function PreviewPortfolio({ data, setShow, show }) {
   const eksportPDF = () => {
     try {
       setIsLoading(true);
-      htmlToImage.toCanvas(document.getElementById("pdf"), { quality: 1 }).then(function (canvas) {
+      htmlToImage.toCanvas(document.getElementById("pdf"), { cacheBust: true }).then(function (canvas) {
         if (canvas.width > canvas.height) {
           const dataUrl = canvas.toDataURL("image/png");
           const pdf = new jsPDF("l", "pt", [canvas.width, canvas.height]);

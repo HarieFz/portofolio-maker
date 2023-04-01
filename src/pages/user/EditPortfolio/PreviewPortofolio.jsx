@@ -1,11 +1,11 @@
-import { doc, Timestamp, updateDoc } from "firebase/firestore";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import React, { useEffect, useState } from "react";
+import Swal from "sweetalert2";
+import ViewPortofolio from "./ViewPortofolio";
+import { auth, db, storage } from "../../../config/firebase";
 import { Button, Modal } from "react-bootstrap";
 import { BsCheck2All } from "react-icons/bs";
-import Swal from "sweetalert2";
-import { auth, db, storage } from "../../../config/firebase";
-import ViewPortofolio from "./ViewPortofolio";
+import { doc, Timestamp, updateDoc } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
 export default function PreviewPortofolio({
   show,

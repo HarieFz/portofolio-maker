@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import { auth, db } from "../../config/firebase";
+import AuthUser from "../../../utils/AuthUser";
+import Banner from "../../../assets/login-banner.png";
+import Logo from "../../../assets/logo.png";
+import Swal from "sweetalert2";
+import { auth, db } from "../../../config/firebase";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
-import AuthUser from "../../utils/user/AuthUser";
-import Banner from "../../assets/login-banner.png";
-import Logo from "../../assets/logo.png";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { Link } from "react-router-dom";
-import Swal from "sweetalert2";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const navigate = useNavigate();

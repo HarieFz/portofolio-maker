@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import { auth, db } from "../../config/firebase";
+import AuthCDC from "../../../utils/AuthCDC";
+import Banner from "../../../assets/login-banner.png";
+import Logo from "../../../assets/logo.png";
+import Swal from "sweetalert2";
+import { auth, db } from "../../../config/firebase";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import AuthAdmin from "../../utils/admin/AuthAdmin";
-import Banner from "../../assets/login-banner.png";
-import Logo from "../../assets/logo.png";
-import Swal from "sweetalert2";
 
-export default function LoginAdmin() {
+export default function LoginCDC() {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -22,10 +22,10 @@ export default function LoginAdmin() {
     await signInWithEmailAndPassword(auth, email, password)
       .then(async (userCredential) => {
         const user = userCredential.user;
-        const q = query(collection(db, "admin"), where("uid", "==", user?.uid));
+        const q = query(collection(db, "cdc"), where("uid", "==", user?.uid));
         const doc = await getDocs(q);
         const data = doc?.docs[0]?.data();
-        AuthAdmin.storeAdminInfoToCookie(user, data);
+        AuthCDC.storeCDCInfoToCookie(user, data);
         Swal.fire({
           text: "Success!",
           title: "Login Successfully",
@@ -34,7 +34,7 @@ export default function LoginAdmin() {
           timer: 1500,
         });
         setIsLoading(false);
-        navigate("/admin");
+        navigate("/cdc");
       })
       .catch((err) => {
         setIsLoading(false);
@@ -59,7 +59,7 @@ export default function LoginAdmin() {
             <div className="mb-4">
               <img src={Logo} alt="" />
               <h4 className="mt-4" style={{ color: "#094b72" }}>
-                Login for Admin
+                Login for Heaf of CDC
               </h4>
             </div>
             <Form.Group className="mb-3">

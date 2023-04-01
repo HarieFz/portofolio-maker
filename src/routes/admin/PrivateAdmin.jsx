@@ -1,7 +1,7 @@
 import React from "react";
-import AuthAdmin from "../../utils/admin/AuthAdmin";
+import AuthAdmin from "../../utils/AuthAdmin";
+import Layout from "../../pages/admin/layouts/Layout";
 import { Navigate, Outlet } from "react-router-dom";
-import Layout from "../../components/admin/Layout";
 
 export default function PrivateAdmin() {
   if (!AuthAdmin.isAuthorization()) {

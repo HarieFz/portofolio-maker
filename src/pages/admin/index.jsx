@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
+import Banner from "../layouts/Banner";
+import Swal from "sweetalert2";
+import PreviewPortfolio from "./components/PreviewPortfolio";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import { collection, deleteDoc, doc, onSnapshot, query } from "firebase/firestore";
 import { db } from "../../config/firebase";
-import Banner from "../../components/user/share/Banner";
-import PreviewPortfolio from "./PreviewPortfolio";
-import Swal from "sweetalert2";
 import { RiDeleteBinLine } from "react-icons/ri";
 
 export default function ListPortfolio() {

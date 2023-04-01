@@ -1,5 +1,5 @@
 import React from "react";
-import AuthCDC from "../../utils/cdc/AuthCDC";
+import AuthCDC from "../../utils/AuthCDC";
 import { Navigate, Outlet } from "react-router-dom";
 
 export default function ProtectedCDC() {

@@ -9,7 +9,7 @@ import * as htmlToImage from "html-to-image";
 import Cookies from "js-cookie";
 import jsPDF from "jspdf";
 import Swal from "sweetalert2";
-import ViewPortofolio from "../../components/share/ViewPortofolio";
+import ViewPortofolio from "../../components/ViewPortofolio";
 
 export default function Profile() {
   const navigate = useNavigate();

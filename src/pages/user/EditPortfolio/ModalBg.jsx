@@ -1,8 +1,8 @@
-import { collection, onSnapshot, query } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import { Modal } from "react-bootstrap";
 import Swal from "sweetalert2";
+import { collection, onSnapshot, query } from "firebase/firestore";
 import { db } from "../../../config/firebase";
+import { Modal } from "react-bootstrap";
 
 export default function ModalBg({ show, setShow, selectedBg, onSelectedBg }) {
   const [data, setData] = useState([]);

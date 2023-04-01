@@ -1,6 +1,6 @@
 import React from "react";
-import AuthAdmin from "../../utils/admin/AuthAdmin";
 import { Navigate, Outlet } from "react-router-dom";
+import AuthAdmin from "../../utils/AuthAdmin";
 
 export default function ProtectedAdmin() {
   if (AuthAdmin.getAccessToken()) {

@@ -1,7 +1,7 @@
 import React from "react";
-import AuthCDC from "../../utils/cdc/AuthCDC";
-import Logo from "../../assets/logo.png";
-import { auth } from "../../config/firebase";
+import AuthCDC from "../../../utils/AuthCDC";
+import Logo from "../../../assets/logo.png";
+import { auth } from "../../../config/firebase";
 import { Button, Container, Nav, Navbar } from "react-bootstrap";
 import { BiLogOut } from "react-icons/bi";
 import { Link, useNavigate } from "react-router-dom";
