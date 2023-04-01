@@ -2,49 +2,20 @@ import React, { useState } from "react";
 import AuthUser from "../../../utils/AuthUser";
 import Banner from "../../../assets/login-banner.png";
 import Logo from "../../../assets/logo.png";
-import Swal from "sweetalert2";
-import { auth, db } from "../../../config/firebase";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { collection, getDocs, query, where } from "firebase/firestore";
-import { Link } from "react-router-dom";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { signIn } from "../../../hooks/authentication/signIn";
 
 export default function Login() {
   const navigate = useNavigate();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const signIn = async (e) => {
+  const handleSignIn = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    await signInWithEmailAndPassword(auth, email, password)
-      .then(async (userCredential) => {
-        const user = userCredential.user;
-        const q = query(collection(db, "users"), where("uid", "==", user?.uid));
-        const doc = await getDocs(q);
-        const data = doc?.docs[0]?.data();
-        AuthUser.storeUserInfoToCookie(user, data);
-        Swal.fire({
-          text: "Success!",
-          title: "Login Successfully",
-          icon: "success",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        setIsLoading(false);
-        navigate("/profile");
-      })
-      .catch((err) => {
-        setIsLoading(false);
-        console.error(err);
-        if (err.code === "auth/user-not-found") {
-          return Swal.fire("Something Error!", "User not found!", "error");
-        }
-        Swal.fire("Something Error!", "Please check again Email and Password", "error");
-      });
+    await signIn(email, password, "users", AuthUser.storeUserInfoToCookie, navigate, "/profile", setIsLoading);
   };
 
   return (
@@ -59,7 +30,7 @@ export default function Login() {
           />
         </Col>
         <Col lg={5} className="text-start">
-          <Form onSubmit={signIn}>
+          <Form onSubmit={handleSignIn}>
             <div className="mb-4">
               <img src={Logo} alt="" />
               <h4 className="mt-4" style={{ color: "#094b72" }}>

@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
-import { AiOutlineCloudUpload } from "react-icons/ai";
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import ModalBg from "../../../components/ModalBg";
 import PreviewPortofolio from "./PreviewPortofolio";
-import ModalBg from "./ModalBg";
+import { AiOutlineCloudUpload } from "react-icons/ai";
 import { BsFillFileEarmarkFill, BsFillXCircleFill } from "react-icons/bs";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { bytesConverter } from "../../../utils/bytesConverter";
 
 const defaultBg =

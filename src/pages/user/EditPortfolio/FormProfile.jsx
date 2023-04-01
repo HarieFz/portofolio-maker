@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import ModalBg from "./ModalBg";
+import ModalBg from "../../../components/ModalBg";
 import PreviewPortofolio from "./PreviewPortofolio";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import { BsFillFileEarmarkFill, BsFillXCircleFill } from "react-icons/bs";

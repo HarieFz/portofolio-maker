@@ -1,12 +1,9 @@
 import React, { useState } from "react";
 import Banner from "../../../assets/login-banner.png";
 import Logo from "../../../assets/logo.png";
-import Swal from "sweetalert2";
-import { addDoc, collection } from "firebase/firestore";
-import { auth, db } from "../../../config/firebase";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { createUserWithEmailAndPassword } from "firebase/auth";
 import { Link } from "react-router-dom";
+import { register } from "../../../hooks/authentication/register";
 import { useNavigate } from "react-router-dom";
 
 export default function Register() {
@@ -17,37 +14,10 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const register = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    await createUserWithEmailAndPassword(auth, email, password)
-      .then(async (userCredential) => {
-        const user = userCredential.user;
-        await addDoc(collection(db, "users"), {
-          uid: user.uid,
-          name,
-          email,
-          role: "user",
-        }).then(() => {
-          setIsLoading(false);
-          navigate("/login");
-          Swal.fire({
-            text: "Success!",
-            title: "Register Successfully",
-            icon: "success",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-        });
-      })
-      .catch((err) => {
-        setIsLoading(false);
-        console.error(err);
-        if (err.code === "auth/email-already-in-use") {
-          return Swal.fire("Something Error!", "Email already in use", "error");
-        }
-        Swal.fire("Something Error!", "Please try again later", "error");
-      });
+    await register(email, password, name, navigate, setIsLoading);
   };
 
   return (
@@ -62,7 +32,7 @@ export default function Register() {
           />
         </Col>
         <Col lg={5} className="text-start">
-          <Form onSubmit={register}>
+          <Form onSubmit={handleRegister}>
             <div className="mb-4">
               <img src={Logo} alt="" />
               <h4 className="mt-4" style={{ color: "#094b72" }}>

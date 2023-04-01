@@ -1,39 +1,14 @@
 import React, { useEffect, useState } from "react";
-import Swal from "sweetalert2";
-import { collection, onSnapshot, query } from "firebase/firestore";
-import { db } from "../../../config/firebase";
 import { Modal } from "react-bootstrap";
+import { fetchAllData } from "../hooks/query/fetchAllData";
 
 export default function ModalBg({ show, setShow, selectedBg, onSelectedBg }) {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  // Get Data Portfolio
-  const fetchData = async () => {
-    const q = query(collection(db, "background"));
-    const unsub = onSnapshot(
-      q,
-      (querySnapshot) => {
-        const backgrounds = [];
-        querySnapshot.forEach((doc) => {
-          backgrounds.push(doc.data());
-        });
-        setData(backgrounds);
-        setIsLoading(false);
-      },
-      (error) => {
-        setIsLoading(false);
-        console.log(error);
-        Swal.fire("Something Error!", "Something Error!", "error");
-      }
-    );
-
-    return unsub;
-  };
-
   useEffect(() => {
     setIsLoading(true);
-    fetchData();
+    fetchAllData("background", setData, setIsLoading);
   }, []);
 
   return (

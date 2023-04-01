@@ -1,43 +1,20 @@
 import React, { useEffect, useState } from "react";
+import Banner from "../../components/Banner";
 import Swal from "sweetalert2";
 import PreviewPortfolio from "./components/PreviewPortfolio";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
-import { collection, deleteDoc, doc, onSnapshot, query } from "firebase/firestore";
+import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "../../config/firebase";
+import { fetchAllData } from "../../hooks/query/fetchAllData";
 import { RiDeleteBinLine } from "react-icons/ri";
-import Banner from "../../components/Banner";
 
 export default function ListPortfolio() {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  // Get Data Portfolio
-  const fetchData = async () => {
-    const q = query(collection(db, "portofolio"));
-    const unsub = onSnapshot(
-      q,
-      (querySnapshot) => {
-        const portfolios = [];
-        querySnapshot.forEach((doc) => {
-          portfolios.push(doc.data());
-        });
-        setData(portfolios);
-        setIsLoading(false);
-      },
-      (error) => {
-        setIsLoading(false);
-        console.log(error);
-        Swal.fire("Something Error!", "Something Error!", "error");
-      }
-    );
-
-    return unsub;
-  };
-
   useEffect(() => {
     setIsLoading(true);
-    fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    fetchAllData("portofolio", setData, setIsLoading);
   }, []);
 
   // Delete Data

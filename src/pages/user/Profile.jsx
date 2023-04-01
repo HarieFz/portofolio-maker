@@ -2,14 +2,13 @@ import React, { useEffect, useState } from "react";
 import { BiEdit } from "react-icons/bi";
 import { BsDownload, BsFiles, BsUpload } from "react-icons/bs";
 import { Button, Col, Container, Row } from "react-bootstrap";
-import { db } from "../../config/firebase";
-import { doc, onSnapshot } from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
 import * as htmlToImage from "html-to-image";
 import Cookies from "js-cookie";
 import jsPDF from "jspdf";
 import Swal from "sweetalert2";
 import ViewPortofolio from "../../components/ViewPortofolio";
+import { fetchDataById } from "../../hooks/query/fetchDataById";
 
 export default function Profile() {
   const navigate = useNavigate();
@@ -21,25 +20,9 @@ export default function Profile() {
   // Get Data Portfolio
   const uid = Cookies.get("uid");
 
-  const fetchData = async () => {
-    const unsub = onSnapshot(
-      doc(db, "portofolio", uid),
-      (doc) => {
-        setData(doc.data());
-        setIsLoading(false);
-      },
-      (error) => {
-        setIsLoading(false);
-        console.log(error);
-      }
-    );
-
-    return unsub;
-  };
-
   useEffect(() => {
     setIsLoading(true);
-    fetchData();
+    fetchDataById("portofolio", uid, setData, setIsLoading);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

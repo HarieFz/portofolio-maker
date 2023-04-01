@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { BsTelephone } from "react-icons/bs";
 import { Col, Container, Row } from "react-bootstrap";
-import { db } from "../../config/firebase";
-import { doc, onSnapshot } from "firebase/firestore";
 import { FaInstagram } from "react-icons/fa";
+import { fetchDataById } from "../../hooks/query/fetchDataById";
 import { FiMail } from "react-icons/fi";
 import { useParams } from "react-router-dom";
 
@@ -29,19 +28,9 @@ export default function Portofolio() {
     projects,
   } = data;
 
-  // Get Data
-  const fetchData = async () => {
-    const unsub = onSnapshot(doc(db, "portofolio", id), (doc) => {
-      setData(doc.data());
-      setIsLoading(false);
-    });
-
-    return unsub;
-  };
-
   useEffect(() => {
     setIsLoading(true);
-    fetchData();
+    fetchDataById("portofolio", id, setData, setIsLoading);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
