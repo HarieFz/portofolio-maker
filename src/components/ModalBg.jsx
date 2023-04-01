@@ -1,15 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Modal } from "react-bootstrap";
-import { fetchAllData } from "../hooks/query/fetchAllData";
+import useFetchAllData from "../hooks/query/useFetchAllData";
 
 export default function ModalBg({ show, setShow, selectedBg, onSelectedBg }) {
-  const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    setIsLoading(true);
-    fetchAllData("background", setData, setIsLoading);
-  }, []);
+  const portfolios = useFetchAllData("/portofolio");
+  const { data, isLoading } = portfolios;
 
   return (
     <Modal size="xl" show={show} onHide={() => setShow(false)}>

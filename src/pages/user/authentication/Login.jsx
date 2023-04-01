@@ -2,20 +2,20 @@ import React, { useState } from "react";
 import AuthUser from "../../../utils/AuthUser";
 import Banner from "../../../assets/login-banner.png";
 import Logo from "../../../assets/logo.png";
+import useSignIn from "../../../hooks/authentication/useSignIn";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
-import { signIn } from "../../../hooks/authentication/signIn";
+import { Link } from "react-router-dom";
 
 export default function Login() {
-  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+
+  const signIn = useSignIn(email, password, "users", "/profile", AuthUser.storeUserInfoToCookie);
+  const { isLoading } = signIn;
 
   const handleSignIn = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
-    await signIn(email, password, "users", AuthUser.storeUserInfoToCookie, navigate, "/profile", setIsLoading);
+    signIn.mutate(true);
   };
 
   return (
@@ -56,6 +56,7 @@ export default function Login() {
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                autoComplete="on"
               />
             </Form.Group>
 

@@ -1,23 +1,21 @@
 import React, { useState } from "react";
 import Banner from "../../../assets/login-banner.png";
 import Logo from "../../../assets/logo.png";
+import useSignUp from "../../../hooks/authentication/useSignUp";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { register } from "../../../hooks/authentication/register";
-import { useNavigate } from "react-router-dom";
 
 export default function Register() {
-  const navigate = useNavigate();
-
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
 
-  const handleRegister = async (e) => {
+  const signUp = useSignUp(email, password, name);
+  const { isLoading } = signUp;
+
+  const handleRegister = (e) => {
     e.preventDefault();
-    setIsLoading(true);
-    await register(email, password, name, navigate, setIsLoading);
+    signUp.mutate(true);
   };
 
   return (
@@ -69,6 +67,7 @@ export default function Register() {
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                autoComplete="on"
               />
             </Form.Group>
 

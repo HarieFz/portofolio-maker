@@ -1,7 +1,7 @@
 import React from "react";
+import { BsTelephone } from "react-icons/bs";
 import { Col, Row } from "react-bootstrap";
 import { FiMail } from "react-icons/fi";
-import { BsTelephone } from "react-icons/bs";
 import { FaInstagram } from "react-icons/fa";
 
 export default function ViewPortofolio({

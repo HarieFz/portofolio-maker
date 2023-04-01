@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { BiEdit } from "react-icons/bi";
 import { BsDownload, BsFiles, BsUpload } from "react-icons/bs";
 import { Button, Col, Container, Row } from "react-bootstrap";
@@ -8,23 +8,18 @@ import Cookies from "js-cookie";
 import jsPDF from "jspdf";
 import Swal from "sweetalert2";
 import ViewPortofolio from "../../components/ViewPortofolio";
-import { fetchDataById } from "../../hooks/query/fetchDataById";
+import useFetchDataById from "../../hooks/query/useFetchDataById";
 
 export default function Profile() {
   const navigate = useNavigate();
+  const uid = Cookies.get("uid");
 
-  const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const portfolio = useFetchDataById("portofolio", uid);
+  const { data, isLoading } = portfolio;
+
   const [isLoadingEksport, setIsLoadingEksport] = useState(false);
 
   // Get Data Portfolio
-  const uid = Cookies.get("uid");
-
-  useEffect(() => {
-    setIsLoading(true);
-    fetchDataById("portofolio", uid, setData, setIsLoading);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const eksportPDF = () => {
     try {

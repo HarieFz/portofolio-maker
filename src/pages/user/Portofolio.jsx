@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import useFetchDataById from "../../hooks/query/useFetchDataById";
 import { BsTelephone } from "react-icons/bs";
 import { Col, Container, Row } from "react-bootstrap";
 import { FaInstagram } from "react-icons/fa";
-import { fetchDataById } from "../../hooks/query/fetchDataById";
 import { FiMail } from "react-icons/fi";
 import { useParams } from "react-router-dom";
 
 export default function Portofolio() {
   const { id } = useParams();
 
-  const [data, setData] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
+  const portfolio = useFetchDataById("portofolio", id);
+  const { data, isLoading } = portfolio;
 
   const {
     bg,
@@ -27,12 +27,6 @@ export default function Portofolio() {
     organization,
     projects,
   } = data;
-
-  useEffect(() => {
-    setIsLoading(true);
-    fetchDataById("portofolio", id, setData, setIsLoading);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   // isEmpty
   const isEmpty = (value) => value?.every((item) => Object.values(item).every((x) => x === null || x === ""));

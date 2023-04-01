@@ -1,21 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Banner from "../../components/Banner";
 import Swal from "sweetalert2";
 import PreviewPortfolio from "./components/PreviewPortfolio";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "../../config/firebase";
-import { fetchAllData } from "../../hooks/query/fetchAllData";
 import { RiDeleteBinLine } from "react-icons/ri";
+import useFetchAllData from "../../hooks/query/useFetchAllData";
 
 export default function ListPortfolio() {
-  const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    setIsLoading(true);
-    fetchAllData("portofolio", setData, setIsLoading);
-  }, []);
+  const portfolios = useFetchAllData("/portofolio");
+  const { data, isLoading } = portfolios;
 
   // Delete Data
   const deleteData = (uid) => {

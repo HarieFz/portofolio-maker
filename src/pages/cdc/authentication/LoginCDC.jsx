@@ -2,20 +2,19 @@ import React, { useState } from "react";
 import AuthCDC from "../../../utils/AuthCDC";
 import Banner from "../../../assets/login-banner.png";
 import Logo from "../../../assets/logo.png";
+import useSignIn from "../../../hooks/authentication/useSignIn";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
-import { signIn } from "../../../hooks/authentication/signIn";
 
 export default function LoginCDC() {
-  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+
+  const signIn = useSignIn(email, password, "cdc", "/cdc", AuthCDC.storeCDCInfoToCookie);
+  const { isLoading } = signIn;
 
   const handleSignIn = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
-    await signIn(email, password, "cdc", AuthCDC.storeCDCInfoToCookie, navigate, "/cdc", setIsLoading);
+    signIn.mutate(true);
   };
 
   return (
@@ -56,6 +55,7 @@ export default function LoginCDC() {
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                autoComplete="on"
               />
             </Form.Group>
 

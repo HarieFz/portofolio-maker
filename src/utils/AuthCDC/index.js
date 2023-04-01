@@ -2,26 +2,26 @@ import Cookies from "js-cookie";
 
 const AuthCDC = {
   isAuthorization() {
-    if (Cookies.get("token")) return true;
+    if (Cookies.get("token") && Cookies.get("role") === "cdc") return true;
     return null;
   },
   getAccessToken() {
-    return Cookies.get("token");
+    return Cookies.get("token") && Cookies.get("role") === "cdc";
   },
   signOut(navigate) {
     Cookies.remove("token");
     Cookies.remove("uid");
-    Cookies.remove("email");
-    Cookies.remove("cdc");
+    Cookies.remove("role");
     navigate("/cdc/login");
   },
   storeCDCInfoToCookie(user, data) {
     if (!user.accessToken) return null;
+    Cookies.remove("token");
+    Cookies.remove("uid");
+    Cookies.remove("role");
     const { accessToken } = user;
-    const { uid, email, role } = data;
+    const { role } = data;
     Cookies.set("token", accessToken, { expires: 1 });
-    Cookies.set("uid", uid, { expires: 1 });
-    Cookies.set("email", email, { expires: 1 });
     Cookies.set("role", role, { expires: 1 });
     return user && data;
   },

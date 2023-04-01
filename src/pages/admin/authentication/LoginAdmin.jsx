@@ -2,21 +2,19 @@ import React, { useState } from "react";
 import AuthAdmin from "../../../utils/AuthAdmin";
 import Banner from "../../../assets/login-banner.png";
 import Logo from "../../../assets/logo.png";
+import useSignIn from "../../../hooks/authentication/useSignIn";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
-import { signIn } from "../../../hooks/authentication/signIn";
 
 export default function LoginAdmin() {
-  const navigate = useNavigate();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+
+  const signIn = useSignIn(email, password, "admin", "/admin", AuthAdmin.storeAdminInfoToCookie);
+  const { isLoading } = signIn;
 
   const handleSignIn = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
-    await signIn(email, password, "admin", AuthAdmin.storeAdminInfoToCookie, navigate, "/admin", setIsLoading);
+    signIn.mutate(true);
   };
 
   return (
@@ -57,6 +55,7 @@ export default function LoginAdmin() {
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                autoComplete="on"
               />
             </Form.Group>
 
