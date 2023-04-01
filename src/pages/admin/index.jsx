@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import Banner from "../layouts/Banner";
 import Swal from "sweetalert2";
 import PreviewPortfolio from "./components/PreviewPortfolio";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import { collection, deleteDoc, doc, onSnapshot, query } from "firebase/firestore";
 import { db } from "../../config/firebase";
 import { RiDeleteBinLine } from "react-icons/ri";
+import Banner from "../../components/Banner";
 
 export default function ListPortfolio() {
   const [data, setData] = useState([]);

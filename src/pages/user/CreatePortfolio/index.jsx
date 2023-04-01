@@ -1,6 +1,6 @@
 import React from "react";
+import Banner from "../../../components/Banner";
 import FormProfile from "./FormProfile";
-import Banner from "../../layouts/Banner";
 
 export default function CreatePortfolio() {
   return (

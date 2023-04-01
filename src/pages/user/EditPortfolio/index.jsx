@@ -1,5 +1,5 @@
 import React from "react";
-import Banner from "../../layouts/Banner";
+import Banner from "../../../components/Banner";
 import FormProfile from "./FormProfile";
 
 export default function EditPortfolio() {

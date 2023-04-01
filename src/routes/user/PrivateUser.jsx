@@ -1,6 +1,6 @@
 import React from "react";
 import AuthUser from "../../utils/AuthUser";
-import Layout from "../../pages/layouts/Layout";
+import Layout from "../../pages/user/layouts/Layout";
 import { Navigate, Outlet } from "react-router-dom";
 
 export default function PrivateUser() {
