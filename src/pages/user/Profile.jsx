@@ -99,12 +99,12 @@ export default function Profile() {
               disabled={data === undefined}
             >
               <BsFiles size={20} className="me-2" />
-              Copy Link URL
+              Copy Link Portfolio
             </Button>
           </Col>
           <Col lg={9}>
             <p className="fw-bold stripe2">
-              <span>PREVIEW PORTOFOLIO</span>
+              <span>PREVIEW PORTFOLIO</span>
             </p>
             {data === undefined ? (
               <div className="text-center my-5">
@@ -132,7 +132,7 @@ export default function Profile() {
                         rel="noopener noreferrer"
                       >
                         <BsUpload className="me-2" />
-                        Publish Portofolio
+                        View Yours Portfolio
                       </Button>
                       <Button variant="outline-primary py-2 w-100" onClick={eksportPDF} disabled={isLoadingEksport}>
                         {isLoadingEksport ? (
@@ -140,7 +140,7 @@ export default function Profile() {
                         ) : (
                           <>
                             <BsDownload className="me-2" />
-                            Eksport PDF
+                            Export to PDF
                           </>
                         )}
                       </Button>
