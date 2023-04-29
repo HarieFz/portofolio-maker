@@ -9,7 +9,7 @@ import { useParams } from "react-router-dom";
 export default function Portofolio() {
   const { id } = useParams();
 
-  const portfolio = useFetchDataById("portofolio", id);
+  const portfolio = useFetchDataById("portfolios", id);
   const { data, isLoading } = portfolio;
 
   const {

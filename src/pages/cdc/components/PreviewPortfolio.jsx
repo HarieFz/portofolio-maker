@@ -17,13 +17,13 @@ export default function PreviewPortfolio({ data, setShow, show }) {
           const dataUrl = canvas.toDataURL("image/png");
           const pdf = new jsPDF("l", "pt", [canvas.width, canvas.height]);
           pdf.addImage(dataUrl, "PNG", 0, 0, canvas.width, canvas.height, null, "FAST");
-          pdf.save("portofolio.pdf");
+          pdf.save("portfolio.pdf");
           setIsLoading(false);
         } else {
           const dataUrl = canvas.toDataURL("image/png");
           const pdf = new jsPDF("p", "pt", [canvas.width, canvas.height]);
           pdf.addImage(dataUrl, "PNG", 0, 0, canvas.width, canvas.height, null, "FAST");
-          pdf.save("portofolio.pdf");
+          pdf.save("portfolio.pdf");
           setIsLoading(false);
         }
       });

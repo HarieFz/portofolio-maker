@@ -16,7 +16,7 @@ export default function About() {
             in building an attractive and professional online portfolio.
           </Col>
           <Col lg={4}>
-            <img src={CDC} alt="" />
+            <img src={CDC} alt="cdc" width="400px" />
           </Col>
         </Row>
       </Container>

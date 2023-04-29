@@ -33,7 +33,7 @@ export default function LoginCDC() {
             <div className="mb-4">
               <img src={Logo} alt="" />
               <h4 className="mt-4" style={{ color: "#094b72" }}>
-                Login for Heaf of CDC
+                Login for Head of CDC
               </h4>
             </div>
             <Form.Group className="mb-3">

@@ -90,7 +90,7 @@ export default function PreviewPortofolio({
     var dataAchievments = [];
 
     for (const data of fileAchievments) {
-      const path = `achievments/${data?.file?.name}`;
+      const path = `achievements/${data?.file?.name}`;
       const storageRef = ref(storage, path);
       const uploadTask = uploadBytesResumable(storageRef, data?.file);
 
@@ -134,7 +134,7 @@ export default function PreviewPortofolio({
 
   const createPost = async (photoURL, achievmentURL, projectURL) => {
     try {
-      await updateDoc(doc(db, "portofolio", user.uid), {
+      await updateDoc(doc(db, "portfolios", user.uid), {
         user_uid: user.uid,
         bg,
         photo: photoURL ? photoURL : photo,

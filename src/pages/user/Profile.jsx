@@ -14,7 +14,7 @@ export default function Profile() {
   const navigate = useNavigate();
   const uid = Cookies.get("uid");
 
-  const portfolio = useFetchDataById("portofolio", uid);
+  const portfolio = useFetchDataById("portfolios", uid);
   const { data, isLoading } = portfolio;
 
   const [isLoadingEksport, setIsLoadingEksport] = useState(false);
@@ -55,7 +55,7 @@ export default function Profile() {
     try {
       navigator.clipboard.writeText(`https://cdc-portfolio-maker.netlify.app/portofolio/${uid}`);
       Toast.fire({
-        title: "Link URL Copied",
+        title: "Link Portfolio Copied",
         color: "#ffffff",
         background: "#1e1e1e",
         timer: 2000,

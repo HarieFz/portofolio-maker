@@ -7,7 +7,7 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { bytesConverter } from "../../../utils/bytesConverter";
 
 const defaultBg =
-  "https://firebasestorage.googleapis.com/v0/b/portofolio-maker-93914.appspot.com/o/backgrounds%2Fbg-1.png?alt=media&token=1b150bab-8449-4d6c-9b1d-83ec22f6f8f7";
+  "https://firebasestorage.googleapis.com/v0/b/portfolio-maker-60b46.appspot.com/o/backgrounds%2Fbg-1.png?alt=media&token=3a5c228c-2110-48ac-a204-85f94c967d85";
 
 export default function FormProfile() {
   // State Form
@@ -606,7 +606,7 @@ export default function FormProfile() {
 
         <div className="px-5">
           <Button className="w-100" onClick={() => setShow(true)} disabled={btnDisabled}>
-            Preview Portofolio
+            Preview Portfolio
           </Button>
         </div>
       </Container>

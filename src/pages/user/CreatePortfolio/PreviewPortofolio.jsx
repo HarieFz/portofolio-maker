@@ -53,7 +53,7 @@ export default function PreviewPortofolio({
     var dataAchievments = [];
 
     for (const data of achievments) {
-      const path = `achievments/${data?.file?.name}`;
+      const path = `achievements/${data?.file?.name}`;
       const storageRef = ref(storage, path);
       const uploadTask = uploadBytesResumable(storageRef, data?.file);
 
@@ -98,7 +98,7 @@ export default function PreviewPortofolio({
   // Create Post
   const createPost = async (photoURL, achievmentURL, projectURL) => {
     try {
-      await setDoc(doc(db, "portofolio", user.uid), {
+      await setDoc(doc(db, "portfolios", user.uid), {
         user_uid: user.uid,
         bg,
         photo: photoURL,
@@ -119,9 +119,9 @@ export default function PreviewPortofolio({
       Swal.fire("Success!", "Created Portfolio is Successfully!", "success");
       setIsLoading(false);
     } catch (err) {
-      setIsLoading(false);
       Swal.fire("Something Error!", "Something Error!", "error");
       console.error(err);
+      setIsLoading(false);
     }
   };
 

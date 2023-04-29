@@ -8,7 +8,7 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import useFetchAllData from "../../../hooks/query/useFetchAllData";
 
 export default function List({ input }) {
-  const portfolios = useFetchAllData("/portofolio");
+  const portfolios = useFetchAllData("/portfolios");
   const { data, isLoading } = portfolios;
 
   // Modal
@@ -32,7 +32,7 @@ export default function List({ input }) {
       confirmButtonText: "Yes, delete it!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        await deleteDoc(doc(db, "portofolio", uid));
+        await deleteDoc(doc(db, "portfolios", uid));
         Swal.fire("Deleted!", "File has been deleted.", "success");
       }
     });

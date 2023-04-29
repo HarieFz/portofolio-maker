@@ -4,7 +4,7 @@ import useFetchAllData from "../../../hooks/query/useFetchAllData";
 import { Button, Card, Col, Row } from "react-bootstrap";
 
 export default function List({ input }) {
-  const portfolios = useFetchAllData("/portofolio");
+  const portfolios = useFetchAllData("/portfolios");
   const { data, isLoading } = portfolios;
 
   // Modal
