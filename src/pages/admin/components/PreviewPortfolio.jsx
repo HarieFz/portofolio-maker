@@ -51,7 +51,7 @@ export default function PreviewPortfolio({ data, setShow, show }) {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Publish Portfolio
+            View Portfolio
           </Button>
 
           <Button className="px-5" onClick={eksportPDF} disabled={isLoading}>
