@@ -12,6 +12,8 @@ const AuthUser = {
     Cookies.remove("token");
     Cookies.remove("uid");
     Cookies.remove("role");
+    Cookies.remove("name");
+    Cookies.remove("email");
     navigate("/login");
   },
   storeUserInfoToCookie(user, data) {
@@ -19,11 +21,15 @@ const AuthUser = {
     Cookies.remove("token");
     Cookies.remove("uid");
     Cookies.remove("role");
+    Cookies.remove("name");
+    Cookies.remove("email");
     const { accessToken } = user;
-    const { uid, role } = data;
+    const { uid, role, name, email } = data;
     Cookies.set("token", accessToken, { expires: 1 });
     Cookies.set("uid", uid, { expires: 1 });
     Cookies.set("role", role, { expires: 1 });
+    Cookies.set("name", name, { expires: 1 });
+    Cookies.set("email", email, { expires: 1 });
     return user && data;
   },
 };

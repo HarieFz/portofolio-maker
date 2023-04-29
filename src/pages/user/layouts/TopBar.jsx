@@ -29,7 +29,7 @@ export default function TopBar() {
         <Navbar.Collapse>
           <Nav className="ms-auto gap-3">
             {AuthUser.isAuthorization() ? (
-              <Button variant="danger" onClick={logout}>
+              <Button variant="outline-primary" onClick={logout}>
                 <BiLogOut /> Logout
               </Button>
             ) : (

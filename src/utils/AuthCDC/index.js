@@ -12,6 +12,8 @@ const AuthCDC = {
     Cookies.remove("token");
     Cookies.remove("uid");
     Cookies.remove("role");
+    Cookies.remove("name");
+    Cookies.remove("email");
     navigate("/cdc/login");
   },
   storeCDCInfoToCookie(user, data) {
@@ -19,6 +21,8 @@ const AuthCDC = {
     Cookies.remove("token");
     Cookies.remove("uid");
     Cookies.remove("role");
+    Cookies.remove("name");
+    Cookies.remove("email");
     const { accessToken } = user;
     const { role } = data;
     Cookies.set("token", accessToken, { expires: 1 });
