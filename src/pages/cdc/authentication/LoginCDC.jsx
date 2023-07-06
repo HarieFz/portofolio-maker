@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import AuthCDC from "../../../utils/AuthCDC";
-import Banner from "../../../assets/login-banner.png";
+import Ilustration from "../../../assets/ilustration-ketua.png";
 import Logo from "../../../assets/logo.png";
 import useSignIn from "../../../hooks/authentication/useSignIn";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
@@ -19,22 +19,25 @@ export default function LoginCDC() {
 
   return (
     <Container>
-      <Row className="d-flex justify-content-center align-items-center" style={{ marginTop: "70px" }}>
+      <Row className="d-flex justify-content-center align-items-center" style={{ marginTop: "80px" }}>
+        <Col lg={5} className="ps-5">
+          <h3 style={{ color: "#094b72" }}>Login For Head of CDC</h3>
+        </Col>
+        <Col lg={5}></Col>
+      </Row>
+      <Row className="d-flex justify-content-center align-items-center" style={{ marginTop: "30px" }}>
         <Col lg={5} className="ps-5">
           <img
-            src={Banner}
+            src={Ilustration}
             alt=""
             className="rounded d-md-none d-sm-none d-none d-lg-block"
-            style={{ width: "350px", height: "500px" }}
+            style={{ width: "400px" }}
           />
         </Col>
         <Col lg={5} className="text-start">
           <Form onSubmit={handleSignIn}>
             <div className="mb-4">
-              <img src={Logo} alt="" />
-              <h4 className="mt-4" style={{ color: "#094b72" }}>
-                Login for Head of CDC
-              </h4>
+              <img src={Logo} alt="logo" />
             </div>
             <Form.Group className="mb-3">
               <Form.Label style={{ color: "#094B72" }}>Email</Form.Label>

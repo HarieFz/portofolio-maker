@@ -1,5 +1,4 @@
 import React from "react";
-import About from "./About";
 import Footer from "./Footer";
 import Hero from "./Hero";
 import StudentPortofolio from "./StudentPortofolio";
@@ -11,7 +10,6 @@ export default function LandingPage() {
       <TopBar />
       <Hero />
       <StudentPortofolio />
-      <About />
       <Footer />
     </div>
   );

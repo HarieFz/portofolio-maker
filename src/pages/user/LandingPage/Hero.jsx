@@ -2,7 +2,6 @@ import React from "react";
 import { Button, Container } from "react-bootstrap";
 import { BsArrowRight } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import PictBanner from "../../../assets/pict-banner.png";
 
 export default function Hero() {
   return (
@@ -15,11 +14,9 @@ export default function Hero() {
           <h5 className="fw-normal mb-4" style={{ color: "#094B72" }}>
             Presented By Career Development Center
           </h5>
-          <Button className="mb-5 px-3 py-2 text-white" as={Link} to="/login">
+          <Button className="px-3 py-2 text-white" style={{ marginBottom: "120px" }} as={Link} to="/login">
             Create Now <BsArrowRight className="ms-2" />
           </Button>
-
-          <img src={PictBanner} alt="" className="img-fluid mb-5" />
         </div>
       </div>
     </Container>

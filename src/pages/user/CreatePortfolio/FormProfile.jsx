@@ -277,91 +277,6 @@ export default function FormProfile() {
             </Form.Group>
           </Row>
 
-          <Form.Label>Achievments</Form.Label>
-          {achievments?.map((item, index) => (
-            <div key={index}>
-              {index ? <hr className="mb-4" /> : null}
-              <div>
-                {!item.file && (
-                  <div
-                    className="border rounded"
-                    style={{ cursor: "pointer" }}
-                    onClick={() => handleClickAchievment(index)}
-                  >
-                    <div className="text-center text-black-50" style={{ paddingTop: "60px", paddingBottom: "60px" }}>
-                      <AiOutlineCloudUpload size="90px" />
-                      <p>Upload Your Document</p>
-                    </div>
-                  </div>
-                )}
-
-                {item.file && (
-                  <div className="border rounded d-flex">
-                    <div className="d-flex p-2">
-                      <BsFillFileEarmarkFill className="my-auto me-2" size="30" />
-                      <div>
-                        <p className="m-0">{item.file.name}</p>
-                        <p className="m-0 text-black-50">{bytesConverter(item.file.size)}</p>
-                      </div>
-                    </div>
-
-                    <div className="p-2 my-auto ms-auto">
-                      <Button
-                        onClick={() =>
-                          setAchievments(achievments.map((item, i) => (i === index ? { ...item, file: null } : item)))
-                        }
-                      >
-                        Cancel
-                      </Button>
-                    </div>
-                  </div>
-                )}
-
-                <Form.Group className="mb-4">
-                  <Form.Control
-                    type="file"
-                    name="file"
-                    className="d-none"
-                    ref={(el) => (fileInputAchievment.current[index] = el)}
-                    onChange={(e) => onAchievmentChange(e, index)}
-                  />
-                </Form.Group>
-              </div>
-
-              <Row className="mb-4">
-                <Form.Group as={Col} lg={6}>
-                  <Form.Control
-                    type="text"
-                    name="name"
-                    placeholder="Your Achievments"
-                    value={item.name}
-                    onChange={(e) => onAchievmentChange(e, index)}
-                  />
-                </Form.Group>
-
-                <Form.Group as={Col} lg={2}>
-                  <Form.Control
-                    type="text"
-                    name="year"
-                    placeholder="Year"
-                    value={item.year}
-                    onChange={(e) => onAchievmentChange(e, index)}
-                  />
-                </Form.Group>
-
-                {index ? (
-                  <Form.Group as={Col} lg={4}>
-                    <Button onClick={() => removeAchievment(index)}>Remove</Button>
-                  </Form.Group>
-                ) : null}
-              </Row>
-            </div>
-          ))}
-
-          <Button variant="outline-primary mb-4 d-block" onClick={addAchievment}>
-            Add More +
-          </Button>
-
           <Form.Label>Work Experience</Form.Label>
           {work?.map((item, index) => (
             <div key={index}>
@@ -515,6 +430,91 @@ export default function FormProfile() {
           ))}
 
           <Button variant="outline-primary mb-4 d-block" onClick={addOrganization}>
+            Add More +
+          </Button>
+
+          <Form.Label>Achievments</Form.Label>
+          {achievments?.map((item, index) => (
+            <div key={index}>
+              {index ? <hr className="mb-4" /> : null}
+              <div>
+                {!item.file && (
+                  <div
+                    className="border rounded"
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handleClickAchievment(index)}
+                  >
+                    <div className="text-center text-black-50" style={{ paddingTop: "60px", paddingBottom: "60px" }}>
+                      <AiOutlineCloudUpload size="90px" />
+                      <p>Upload Your Document</p>
+                    </div>
+                  </div>
+                )}
+
+                {item.file && (
+                  <div className="border rounded d-flex">
+                    <div className="d-flex p-2">
+                      <BsFillFileEarmarkFill className="my-auto me-2" size="30" />
+                      <div>
+                        <p className="m-0">{item.file.name}</p>
+                        <p className="m-0 text-black-50">{bytesConverter(item.file.size)}</p>
+                      </div>
+                    </div>
+
+                    <div className="p-2 my-auto ms-auto">
+                      <Button
+                        onClick={() =>
+                          setAchievments(achievments.map((item, i) => (i === index ? { ...item, file: null } : item)))
+                        }
+                      >
+                        Cancel
+                      </Button>
+                    </div>
+                  </div>
+                )}
+
+                <Form.Group className="mb-4">
+                  <Form.Control
+                    type="file"
+                    name="file"
+                    className="d-none"
+                    ref={(el) => (fileInputAchievment.current[index] = el)}
+                    onChange={(e) => onAchievmentChange(e, index)}
+                  />
+                </Form.Group>
+              </div>
+
+              <Row className="mb-4">
+                <Form.Group as={Col} lg={6}>
+                  <Form.Control
+                    type="text"
+                    name="name"
+                    placeholder="Your Achievments"
+                    value={item.name}
+                    onChange={(e) => onAchievmentChange(e, index)}
+                  />
+                </Form.Group>
+
+                <Form.Group as={Col} lg={2}>
+                  <Form.Control
+                    type="text"
+                    name="year"
+                    placeholder="Year"
+                    value={item.year}
+                    onChange={(e) => onAchievmentChange(e, index)}
+                  />
+                </Form.Group>
+
+                {index ? (
+                  <Form.Group as={Col} lg={4}>
+                    <Button onClick={() => removeAchievment(index)}>Remove</Button>
+                  </Form.Group>
+                ) : null}
+              </Row>
+            </div>
+          ))}
+
+          <Button variant="outline-primary mb-4 d-block" onClick={addAchievment}>
             Add More +
           </Button>
 

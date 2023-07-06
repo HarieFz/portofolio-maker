@@ -46,28 +46,93 @@ export default function ViewPortofolio({ data }) {
         </div>
       </div>
 
-      <div className="px-5 pb-2">
-        <hr />
-
-        <Row className="mb-4">
-          <Col lg={3}>
-            <h5>About Me</h5>
-          </Col>
-          <Col lg={9}>{about_me}</Col>
-        </Row>
-
+      <div className="mt-5 px-5 pb-2">
         <Row>
-          <Col>
-            <FiMail className="me-2" />
-            {email}
+          <Col lg={4}>
+            <div className="mb-5">
+              <h4>About Me</h4>
+              <hr />
+              <p>{about_me}</p>
+            </div>
+            <div>
+              <h4>Social</h4>
+              <hr />
+              <p>
+                <FiMail className="me-2" />
+                {email}
+              </p>
+              <p>
+                <BsTelephone className="me-2" />
+                {phone}
+              </p>
+              <p>
+                <FaInstagram className="me-2" />
+                {socmed}
+              </p>
+            </div>
           </Col>
-          <Col>
-            <BsTelephone className="me-2" />
-            {phone}
-          </Col>
-          <Col>
-            <FaInstagram className="me-2" />
-            {socmed}
+          <Col lg={8}>
+            {isEmpty(work) ? null : (
+              <>
+                <h4>Work Experience</h4>
+                <hr />
+
+                {work?.map((item, index) => (
+                  <div key={index} className="mb-4">
+                    <div className="d-flex justify-content-between">
+                      <p className="fw-bold">{item.name}</p>
+                      <p>{item.year}</p>
+                    </div>
+
+                    <div className="d-flex justify-content-between">
+                      <p>
+                        {item.company} | {item.location}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </>
+            )}
+
+            {isEmpty(education) ? null : (
+              <>
+                <h4>Education</h4>
+                <hr />
+
+                {education?.map((item, index) => (
+                  <div key={index} className="mb-4">
+                    <div className="d-flex justify-content-between">
+                      <p className="fw-bold">{item.name}</p>
+                      <p>{item.year}</p>
+                    </div>
+
+                    <div className="d-flex justify-content-between">
+                      <p>{item.study}</p>
+                    </div>
+                  </div>
+                ))}
+              </>
+            )}
+
+            {isEmpty(organization) ? null : (
+              <>
+                <h4>Organization</h4>
+                <hr />
+
+                {organization?.map((item, index) => (
+                  <div key={index}>
+                    <div className="d-flex justify-content-between">
+                      <p className="fw-bold">{item.name}</p>
+                      <p>{item.year}</p>
+                    </div>
+
+                    <div className="d-flex justify-content-between">
+                      <p>{item.role}</p>
+                    </div>
+                  </div>
+                ))}
+              </>
+            )}
           </Col>
         </Row>
 
@@ -84,71 +149,6 @@ export default function ViewPortofolio({ data }) {
                   <p>{item.year}</p>
                 </div>
                 <img src={item.file.url} alt="" width="100%" style={{ objectFit: "cover" }} />
-              </div>
-            ))}
-          </>
-        )}
-
-        {isEmpty(work) ? null : (
-          <>
-            <hr />
-
-            <h4 className="mb-4">Work Experience</h4>
-
-            {work?.map((item, index) => (
-              <div key={index} className="mb-4">
-                <div className="d-flex justify-content-between">
-                  <p className="fw-bold">{item.name}</p>
-                  <p>{item.year}</p>
-                </div>
-
-                <div className="d-flex justify-content-between">
-                  <p>
-                    {item.company} | {item.location}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </>
-        )}
-
-        {isEmpty(education) ? null : (
-          <>
-            <hr />
-
-            <h4 className="mb-4">Education</h4>
-
-            {education?.map((item, index) => (
-              <div key={index} className="mb-4">
-                <div className="d-flex justify-content-between">
-                  <p className="fw-bold">{item.name}</p>
-                  <p>{item.year}</p>
-                </div>
-
-                <div className="d-flex justify-content-between">
-                  <p>{item.study}</p>
-                </div>
-              </div>
-            ))}
-          </>
-        )}
-
-        {isEmpty(organization) ? null : (
-          <>
-            <hr />
-
-            <h4 className="mb-4">Organization</h4>
-
-            {organization?.map((item, index) => (
-              <div key={index} className="mb-4">
-                <div className="d-flex justify-content-between">
-                  <p className="fw-bold">{item.name}</p>
-                  <p>{item.year}</p>
-                </div>
-
-                <div className="d-flex justify-content-between">
-                  <p>{item.role}</p>
-                </div>
               </div>
             ))}
           </>

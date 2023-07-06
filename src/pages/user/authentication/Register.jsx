@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import Banner from "../../../assets/login-banner.png";
+import Ilustration from "../../../assets/ilustration-login.png";
+
 import Logo from "../../../assets/logo.png";
 import useSignUp from "../../../hooks/authentication/useSignUp";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
@@ -20,13 +21,20 @@ export default function Register() {
 
   return (
     <Container>
-      <Row className="d-flex justify-content-center align-items-center" style={{ marginTop: "50px" }}>
+      <Row className="d-flex justify-content-center align-items-center" style={{ marginTop: "20px" }}>
+        <Col lg={5} className="ps-5">
+          <h3 style={{ color: "#094b72" }}>Register</h3>
+          <p style={{ color: "#094b72" }}>Let’s Create your professional portfolio easily and quickly</p>
+        </Col>
+        <Col lg={5}></Col>
+      </Row>
+      <Row className="d-flex justify-content-center align-items-center" style={{ marginTop: "10px" }}>
         <Col lg={5} className="ps-5">
           <img
-            src={Banner}
+            src={Ilustration}
             alt=""
             className="rounded d-md-none d-sm-none d-none d-lg-block"
-            style={{ width: "350px", height: "500px" }}
+            style={{ width: "350px" }}
           />
         </Col>
         <Col lg={5} className="text-start">
